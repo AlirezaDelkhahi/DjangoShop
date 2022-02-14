@@ -1,7 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+from core.models import BaseModel
+import os
 
-class Address(models.Model):
+
+class Address(BaseModel):
     """
         Customer's Addresses (a customer can have multiple addresses)
     """
@@ -10,23 +13,25 @@ class Address(models.Model):
     address = models.TextField()
     customer = models.ForeignKey("Customer", on_delete=models.CASCADE, related_name='userAddress')
 
-class Customer(models.Model):
+
+def get_upload_path(instance, filename):
+    return os.path.join(
+        instance.id,
+        instance.first_name, instance.last_name,
+        filename
+        )    
+
+
+class Customer(BaseModel):
     
     gender_choices = (
-        ('male','مذکر'),
-        ('female','مونث')
+        ('male', 'مذکر'),
+        ('female', 'مونث')
         )
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100, verbose_name='First Name')
     last_name = models.CharField(max_length=100, verbose_name='Last Name')
     phone = models.CharField(max_length=100, verbose_name='Phone Number')
-    image = models.FileField(default='Default-Images/default_user,png', upload_to=img_path, blank=True, null=True, verbose_name='Profile Image')
-    gender = models.CharField(choices=gender_choices, null=True, blank=True, verbose_name='Gender')
-
-    @property
-    def img_path(self):
-        """
-            this property creates a dynamic directory name for each user
-        """
-        return f'{self.id}-{self.first_name}_{self.last_name}'
+    image = models.FileField(default='Default-Images/default_user,png', upload_to=get_upload_path, blank=True, null=True, verbose_name='Profile Image')
+    gender = models.CharField(choices=gender_choices, null=True, blank=True, verbose_name='Gender', max_length=10)
