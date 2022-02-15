@@ -18,6 +18,7 @@ class Coupon(BaseDiscount):
 class CartItem(BaseModel):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Item')
     quantity = models.IntegerField(default=1, verbose_name='Quantity')
+    cart = models.ForeignKey('Cart', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.product.name}: {self.quantity}x'
