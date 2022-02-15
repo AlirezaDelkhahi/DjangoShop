@@ -13,3 +13,15 @@ class Category(BaseModel):
 
     def __str__(self):
         return f'{self.name}'
+
+
+class Provider(BaseModel):
+    """
+        Provider Companies Bring Product lines of different brands
+    """
+    name = models.CharField(max_length=100, verbose_name='Company Name')
+    description = models.TextField(max_length=100, verbose_name='Company Details', null=True, blank=True)
+    address = models.ForeignKey(Address, on_delete=models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.name}'
