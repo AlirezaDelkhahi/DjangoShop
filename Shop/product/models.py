@@ -25,3 +25,17 @@ class Provider(BaseModel):
 
     def __str__(self):
         return f'{self.name}'
+
+
+class Brand(BaseModel):
+    """
+        Product's original brands
+    """
+    name = models.CharField(max_length=100, verbose_name='Brand Name')
+    country = models.CharField(max_length=100, verbose_name='Brand Country')
+    provider = models.ForeignKey(Provider, on_delete=models.SET_NULL, verbose_name='Brand Provider')
+    description = models.TextField(null=True, blank=True, verbose_name='Brand Details')
+
+    def __str__(self):
+        return f'{self.name} from {self.provider}'
+
