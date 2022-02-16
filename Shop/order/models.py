@@ -19,7 +19,7 @@ class Coupon(BaseDiscount):
 class CartItem(BaseModel):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Item')
     quantity = models.IntegerField(default=1, verbose_name='Quantity')
-    cart = models.ForeignKey('Cart', on_delete=models.CASCADE, related_name='items')
+    cart = models.ForeignKey('Cart', on_delete=models.CASCADE, related_name='items', null=True, blank=True)
 
     @property
     def final_price(self):
@@ -29,7 +29,7 @@ class CartItem(BaseModel):
         :return: final_price
         """
         if self.product.discount:
-            return self.product.price - self.product.discount.profit_value(self.product.price) * self.quantity
+            return (self.product.price - self.product.discount.profit_value(self.product.price)) * self.quantity
         return self.product.price * self.quantity
 
     def __str__(self):
@@ -43,12 +43,7 @@ class Cart(BaseModel):
     discount = models.IntegerField(verbose_name='Coupon', blank=True, null=True, default=0)
     address = models.TextField(verbose_name='Shipping Address', null=True, blank=True)
 
-    @property
-    def total_price(self):
-        """
-            Calculate and return total_price of Cart (without Coupon)
-        """
-        return sum([x.final_price for x in self.items.all()])
+    # TODO: total_price Property
 
     @property
     def final_price(self):
