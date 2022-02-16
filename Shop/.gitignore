@@ -1,5 +1,8 @@
 #pycharm
-.idea
+.idea/
+../.idea/
+#migrations
+*.xml
 
 #django
 migrations
