@@ -10,7 +10,7 @@ class Category(BaseModel):
     """
     name = models.CharField(max_length=100)
     thumbnail = models.FileField(default='Default-Images/default_category.png')
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='children')
+    parent = models.ForeignKey('self', on_delete=models.SET_NULL, related_name='children', null=True, blank=True)
 
     def __str__(self):
         return f'{self.name}'
@@ -58,12 +58,15 @@ class Product(BaseModel):
     name = models.CharField(max_length=100, verbose_name='Name')
     description = models.TextField(null=True, blank=True, verbose_name='Description')
     slug = models.SlugField()
-    category = models.ManyToManyField(Category, on_delete=models.SET_NULL,
-                                      verbose_name='Category',
+    price = models.IntegerField(verbose_name='Price')
+    category = models.ManyToManyField(Category, verbose_name='Category',
                                       related_name='products',
                                       null=True, blank=True)
     image = models.FileField(default='Default-Images/product_default.jpg', upload_to='Products/', null=True, blank=True)
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Brand',
                               related_name='products')
     discount = models.ForeignKey(Discount, on_delete=models.SET_NULL, null=True, blank=True,
-                                 verbose_name='Discount', related_name='products')
+                                 verbose_name='Discount', related_name='products', default=None)
+
+    def __str__(self):
+        return f'{self.name} {self.price}'
