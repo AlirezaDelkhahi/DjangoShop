@@ -1,3 +1,4 @@
+from django.utils.translation import gettext as _
 from django.db import models
 from django.contrib.auth.models import User
 from core.models import BaseModel
@@ -32,8 +33,8 @@ class Customer(BaseModel):
         ('female', 'مونث')
         )
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=100, verbose_name='First Name')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('User'))
+    first_name = models.CharField(max_length=100, verbose_name=_('First Name'))
     last_name = models.CharField(max_length=100, verbose_name='Last Name')
     phone = models.CharField(max_length=100, verbose_name='Phone Number')
     image = models.FileField(default='Default-Images/default_user,png', upload_to='user_profiles/', blank=True, null=True, verbose_name='Profile Image')
