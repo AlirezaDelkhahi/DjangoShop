@@ -106,7 +106,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
@@ -119,6 +118,7 @@ USE_TZ = True
 
 # Static Config
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static',]
 
 # Media Config
 MEDIA_URL = '/media/'
@@ -127,3 +127,11 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# translation config
+LANGUAGE_CODE = 'en'
+LANGUAGES = (
+    ('en', 'English'),
+    ('fa', 'Farsi')
+)
+LOCALE_PATHS = (BASE_DIR / 'locale/',)
