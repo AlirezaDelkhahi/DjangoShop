@@ -61,7 +61,7 @@ class Product(BaseModel):
     price = models.IntegerField(verbose_name='Price')
     category = models.ManyToManyField(Category, verbose_name='Category',
                                       related_name='products',
-                                      null=True, blank=True)
+                                      blank=True)
     image = models.FileField(default='Default-Images/product_default.jpg', upload_to='Products/', null=True, blank=True)
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Brand',
                               related_name='products')
