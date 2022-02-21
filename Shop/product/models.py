@@ -22,7 +22,7 @@ class Provider(BaseModel):
     """
     name = models.CharField(max_length=100, verbose_name='Company Name')
     description = models.TextField(max_length=100, verbose_name='Company Details', null=True, blank=True)
-    address = models.ForeignKey(Address, on_delete=models.CASCADE, null=True, blank=True)
+    address = models.OneToOneField(Address, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f'{self.name}'
@@ -57,11 +57,11 @@ class Discount(BaseDiscount):
 class Product(BaseModel):
     name = models.CharField(max_length=100, verbose_name='Name')
     description = models.TextField(null=True, blank=True, verbose_name='Description')
-    slug = models.SlugField()
+    slug = models.SlugField(null=True)
     price = models.IntegerField(verbose_name='Price')
-    category = models.ManyToManyField(Category, verbose_name='Category',
-                                      related_name='products',
-                                      blank=True)
+    category = models.ForeignKey(Category, verbose_name='Category',
+                                 related_name='products', null=True,
+                                 blank=True, on_delete=models.SET_NULL)
     image = models.FileField(default='Default-Images/product_default.jpg', upload_to='Products/', null=True, blank=True)
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Brand',
                               related_name='products')
