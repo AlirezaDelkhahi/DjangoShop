@@ -4,6 +4,9 @@
 #migrations
 *.xml
 
+#vscode settings
+.vscode
+
 #django
 migrations
 
