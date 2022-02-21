@@ -12,13 +12,13 @@ class CouponAdmin(admin.ModelAdmin):
 
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
-    list_display = ['customer', 'discount', 'address']
+    list_display = ['customer', 'coupon', 'address']
     search_fields = ('customer', 'address')
     list_filter = ['last_updated']
 
 
 @admin.register(CartItem)
 class CartItemAdmin(admin.ModelAdmin):
-    list_display = ['product', 'quantity']
+    list_display = ['product', 'quantity', 'final_price']
     search_fields = ('product', )
     list_filter = ['last_updated']
