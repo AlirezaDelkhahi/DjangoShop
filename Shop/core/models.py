@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-
+from django.contrib.auth.models import AbstractUser, UserManager
 from core.manager import BaseManager
 
 
@@ -67,3 +67,20 @@ class BaseDiscount(BaseModel):
 
     class Meta:
         abstract = True
+
+
+class MyUserManager(UserManager):
+    
+    def create_superuser(self, username=None, email=None, password=None, **extra_fields):
+        username = extra_fields['phone']
+        return super().create_superuser(username, email, password, **extra_fields)
+
+    def create_user(self, username=None, **extra_fields):
+        username = extra_fields['phone']
+        return super().create_user(username)
+
+class User(AbstractUser):
+    phone = models.CharField(max_length=15, unique=True)
+    USERNAME_FIELD = 'phone'
+
+    objects = MyUserManager()
