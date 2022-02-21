@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'customer.apps.CustomerConfig',
     'order.apps.OrderConfig',
     'product.apps.ProductConfig',
+    'core.apps.CoreConfig'
 ]
 
 MIDDLEWARE = [
@@ -135,3 +136,6 @@ LANGUAGES = (
     ('fa', 'Farsi')
 )
 LOCALE_PATHS = (BASE_DIR / 'locale/',)
+
+# Custom user config
+AUTH_USER_MODEL = 'core.User'
