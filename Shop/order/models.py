@@ -4,6 +4,7 @@ from core.models import BaseDiscount, BaseModel
 from customer.models import Customer, Address
 from product.models import Product
 
+
 class Coupon(BaseDiscount):
     code = models.CharField(max_length=50)
     valid_from = models.DateTimeField()
@@ -20,16 +21,18 @@ class CartItem(BaseModel):
     quantity = models.IntegerField(default=1, verbose_name='Quantity')
     cart = models.ForeignKey('Cart', on_delete=models.CASCADE, related_name='items', null=True, blank=True)
     final_price = models.IntegerField(default=0, null=True, blank=True)
-    
+
     def calc_final_price(self):
         """
         Calculate and Return the Final Price of an order item
         :param: instance
         :return final_price:
         """
-        self.final_price =  (self.product.price - self.product.discount.profit_value(self.product.price)) * self.quantity if self.product.discount else self.product.price * self.quantity
-        return self.final_price
-        
+        self.final_price = (self.product.price - self.product.discount.profit_value(self.product.price)) * self.quantity if self.product.discount else self.product.price * self.quantity
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        self.calc_final_price()
+        return super().save(force_insert, force_update, using, update_fields)
 
     def __str__(self):
         return f'{self.product.name}: {self.quantity}x'
@@ -51,8 +54,6 @@ class Cart(BaseModel):
             :return total_price:
         """
         self.total_price = sum([x.final_price for x in self.items.all()])
-        return self.total_price
-
 
     def calc_final_price(self):
         """
@@ -61,8 +62,11 @@ class Cart(BaseModel):
             :return final_price:
         """
         self.final_price = (self.total_price - self.coupon.profit_value(self.final_price)) if self.coupon else self.total_price
-        return self.final_price
 
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        self.calc_final_price()
+        self.calc_total_price()
+        return super().save(force_insert, force_update, using, update_fields)
 
     def __str__(self):
         return f'{self.customer} - {self.final_price}'
