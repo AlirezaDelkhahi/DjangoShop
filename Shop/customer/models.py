@@ -14,6 +14,9 @@ class Address(BaseModel):
     address = models.TextField()
     customer = models.ForeignKey("Customer", on_delete=models.CASCADE, related_name='userAddress')
 
+    class Meta:
+        ordering = ['-created']
+
     def __str__(self):
         return f'{self.customer} {self.city}'
 
@@ -36,6 +39,9 @@ class Customer(BaseModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('User'))
     image = models.FileField(default='Default-Images/default_user,png', upload_to='user_profiles/', blank=True, null=True, verbose_name='Profile Image')
     gender = models.CharField(choices=gender_choices, null=True, blank=True, verbose_name='Gender', max_length=10)
+
+    class Meta:
+        ordering = ['-created']
 
     def __str__(self):
         return f'{self.user}'
