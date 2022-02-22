@@ -15,28 +15,28 @@
     <title>{% block Title %}{% endblock %}</title>
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row" id="nav1-container">
-        <!-- nav 1 -->
-        {% include 'shop/layouts/__navbar_user.html' %}
-    </div>
+<div class="container-fluid p-0">
     <div class="row" id="nav2-container">
-        <!-- nav 2 -->
+        <!-- nav 1 -->
         {% include 'shop/layouts/__navbar_product.html' %}
     </div>
+    <div class="row" id="nav1-container">
+        <!-- nav 2 -->
+        {% include 'shop/layouts/__navbar_user.html' %}
+    </div>
+    {% include 'shop/layouts/__messages.html' %}
     <div class="row" id="slider-container">
         <!-- slider -->
         {% block Slider %}{% endblock %}
     </div>
-    {% include 'shop/layouts/__messages.html' %}
 
     <div class="row" id="main-container">
-        <div class="col-10" id="left-sidebar">
+        <div class="col-12" id="left-sidebar">
             {% block Contents %}{% endblock %}
         </div>
-        <div class="col-2" id="right-sidebar">
-            {% block Sidebar %}{% endblock %}
-        </div>
+{#        <div class="col-2" id="right-sidebar">#}
+{#            {% block Sidebar %}{% endblock %}#}
+{#        </div>#}
     </div>
     <div class="row">
         <!-- Footer -->
