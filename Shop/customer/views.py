@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
 from .forms import UserRegistrationForm, UserLoginForm
@@ -62,3 +63,9 @@ class UserLoginView(View):
                 messages.error(request, 'username or password is not correct', 'danger')
         return render(request, self.template_name, {'form': form})
 
+
+class UserLogoutView(LoginRequiredMixin, View):
+    def get(self, request):
+        logout(request)
+        messages.success(request, "you've been logged out successfully", 'success')
+        return redirect('product:home')
