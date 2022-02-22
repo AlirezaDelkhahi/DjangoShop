@@ -10,6 +10,9 @@ class Coupon(BaseDiscount):
     valid_from = models.DateTimeField()
     valid_to = models.DateTimeField()
 
+    class Meta:
+        ordering = ['-created']
+
     def __str__(self):
         if self.type == 'percent':
             return f'{self.code}| {self.value}%'
@@ -22,6 +25,9 @@ class CartItem(BaseModel):
     cart = models.ForeignKey('Cart', on_delete=models.CASCADE, related_name='items', null=True, blank=True)
     final_price = models.IntegerField(default=0, null=True, blank=True)
 
+    class Meta:
+        ordering = ['-created']
+
     def calc_final_price(self):
         """
         Calculate and Return the Final Price of an order item
@@ -31,6 +37,9 @@ class CartItem(BaseModel):
         self.final_price = (self.product.price - self.product.discount.profit_value(self.product.price)) * self.quantity if self.product.discount else self.product.price * self.quantity
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        """
+            sets final price automatically before saving the model object
+        """
         self.calc_final_price()
         return super().save(force_insert, force_update, using, update_fields)
 
@@ -46,6 +55,9 @@ class Cart(BaseModel):
     coupon = models.ForeignKey(Coupon, on_delete=models.SET_NULL, null=True, blank=True)
     final_price = models.IntegerField(default=0, null=True, blank=True)
     total_price = models.IntegerField(default=0, null=True, blank=True)
+
+    class Meta:
+        ordering = ['-created']
 
     def calc_total_price(self):
         """
@@ -64,6 +76,9 @@ class Cart(BaseModel):
         self.final_price = (self.total_price - self.coupon.profit_value(self.final_price)) if self.coupon else self.total_price
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        """
+            sets final and total price automatically before saving the model object
+        """
         self.calc_final_price()
         self.calc_total_price()
         return super().save(force_insert, force_update, using, update_fields)
