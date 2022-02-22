@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 
 from .models import Category, Product
@@ -37,3 +37,18 @@ class DetailCategory(View):
         """
         cat = Category.objects.get(id=category_id)
         return render(request, self.template_name, {'cat':cat})
+
+
+class DetailProduct(View):
+    template_name = 'product/detail-product.html'
+
+    def setup(self, request, *args, **kwargs):
+        self.product = get_object_or_404(Product, pk=kwargs['product_id'])
+        return super().setup(request, *args, **kwargs)
+
+    def get(self, request, product_id):
+        print(self.product.brand)
+        return render(request, self.template_name, {'product': self.product})
+
+    def post(self, requset, product_id):
+        pass
