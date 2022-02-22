@@ -49,6 +49,9 @@ class BaseModel(models.Model):
 
 
 class BaseDiscount(BaseModel):
+    """
+        Base Discount model for Discount and Coupon models (Repeated fields Only)
+    """
     value = models.PositiveIntegerField(null=False)
     type = models.CharField(max_length=10, choices=[('price', 'Price'), ('percent', 'Percent')], null=False)
     max_price = models.PositiveIntegerField(null=True, blank=True)
@@ -70,7 +73,9 @@ class BaseDiscount(BaseModel):
 
 
 class MyUserManager(UserManager):
-
+    """
+        overWriting User manager to use phone as main username field
+    """
     def create_superuser(self, username=None, email=None, password=None, **extra_fields):
         username = extra_fields['phone']
         return super().create_superuser(username, email, password, **extra_fields)
@@ -79,8 +84,21 @@ class MyUserManager(UserManager):
         username = extra_fields['phone']
         return super().create_user(username, **extra_fields)
 
+
 class User(AbstractUser):
+    """
+        Custom User model inheriting from AbstractUser
+    """
     phone = models.CharField(max_length=15, unique=True)
     USERNAME_FIELD = 'phone'
 
     objects = MyUserManager()
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        """
+            overWriting Save method for user model
+            to make assign username with phone field
+            at saving object time
+        """
+        self.username = self.phone
+        return super().save(force_insert, force_update, using, update_fields)
