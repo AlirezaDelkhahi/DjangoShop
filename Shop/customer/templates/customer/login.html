@@ -20,7 +20,7 @@
                     <form action="" class="form" method="POST">
                         {% csrf_token %}
                         {{ form.as_p }}
-                        <button type="submit" class="btn btn-success mt-3">Login</button>
+                        <button type="submit" class="btn btn-warning mt-3">Login</button>
                     </form>
                     <a href="{% url 'customer:reset_password' %}" class="text-center"> Forgot password ? </a>
                 </div>
