@@ -12,6 +12,9 @@ class Category(BaseModel):
     thumbnail = models.FileField(default='Default-Images/default_category.png')
     parent = models.ForeignKey('self', on_delete=models.SET_NULL, related_name='children', null=True, blank=True)
 
+    class Meta:
+        ordering = ['-created']
+
     def __str__(self):
         return f'{self.name}'
 
@@ -23,6 +26,9 @@ class Provider(BaseModel):
     name = models.CharField(max_length=100, verbose_name='Company Name')
     description = models.TextField(max_length=100, verbose_name='Company Details', null=True, blank=True)
     address = models.OneToOneField(Address, on_delete=models.SET_NULL, null=True, blank=True)
+
+    class Meta:
+        ordering = ['-created']
 
     def __str__(self):
         return f'{self.name}'
@@ -38,6 +44,9 @@ class Brand(BaseModel):
                                  null=True, blank=True)
     description = models.TextField(null=True, blank=True, verbose_name='Brand Details')
 
+    class Meta:
+        ordering = ['-created']
+
     def __str__(self):
         return f'{self.name} from {self.provider}'
 
@@ -47,6 +56,9 @@ class Discount(BaseDiscount):
         Discount model for Products
     """
     expire_date = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['-created']
 
     def __str__(self):
         if self.type == 'percent':
@@ -67,6 +79,9 @@ class Product(BaseModel):
                               related_name='products')
     discount = models.ForeignKey(Discount, on_delete=models.SET_NULL, null=True, blank=True,
                                  verbose_name='Discount', related_name='products', default=None)
+
+    class Meta:
+        ordering = ['-created']
 
     def __str__(self):
         return f'{self.name} {self.price}'
