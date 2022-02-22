@@ -40,6 +40,9 @@ class DetailCategory(View):
 
 
 class DetailProduct(View):
+    """
+        this view returns more details about a requested product
+    """
     template_name = 'product/detail-product.html'
 
     def setup(self, request, *args, **kwargs):
@@ -55,6 +58,9 @@ class DetailProduct(View):
 
 
 class ListBrand(View):
+    """
+        This View shows all existing brands with a button to show products of them
+    """
     template_name = 'product/brands.html'
 
     def get(self, request):
