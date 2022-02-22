@@ -79,8 +79,8 @@ class Cart(BaseModel):
         """
             sets final and total price automatically before saving the model object
         """
-        self.calc_final_price()
         self.calc_total_price()
+        self.calc_final_price()
         return super().save(force_insert, force_update, using, update_fields)
 
     def __str__(self):
