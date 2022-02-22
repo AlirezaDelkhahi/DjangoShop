@@ -139,3 +139,6 @@ LOCALE_PATHS = (BASE_DIR / 'locale/',)
 
 # Custom user config
 AUTH_USER_MODEL = 'core.User'
+
+# Custom Login Url
+LOGIN_URL = '/customer/login'
