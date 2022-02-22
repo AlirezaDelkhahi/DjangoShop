@@ -9,7 +9,7 @@ class Category(BaseModel):
         Category Model has Self Relation
     """
     name = models.CharField(max_length=100)
-    thumbnail = models.FileField(default='Default-Images/default_category.png')
+    thumbnail = models.FileField(default='Default-Images/default_category.png', upload_to='categories/')
     parent = models.ForeignKey('self', on_delete=models.SET_NULL, related_name='children', null=True, blank=True)
 
     class Meta:
@@ -42,7 +42,7 @@ class Brand(BaseModel):
     country = models.CharField(max_length=100, verbose_name='Brand Country')
     provider = models.ForeignKey(Provider, on_delete=models.SET_NULL, verbose_name='Brand Provider',
                                  null=True, blank=True)
-    thumbnail = models.FileField(default='Default-Images/default_brand.png')
+    thumbnail = models.FileField(default='Default-Images/default_brand.png', upload_to='brands/')
     description = models.TextField(null=True, blank=True, verbose_name='Brand Details')
 
     class Meta:
