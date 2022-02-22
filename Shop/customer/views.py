@@ -1,10 +1,14 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views import View
 from .forms import UserRegistrationForm, UserLoginForm
 from django.contrib.auth import authenticate, login, logout
 from core.models import User
 from django.contrib import messages
+from .models import Customer
+from django.contrib.auth import views as auth_views
+
 
 # Create your views here.
 
@@ -39,7 +43,8 @@ class UserRegisterView(View):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            User.objects.create_user(phone=cd['phone'], email=cd['email'], password=cd['password1'])
+            new_user = User.objects.create_user(phone=cd['phone'], email=cd['email'], password=cd['password1'])
+            Customer.objects.create(user=new_user, gender=cd['gender'])
             messages.success(request, 'you registered successfully', 'success')
             return redirect('product:home')
         else:  # user sends wrong data in register form
@@ -93,3 +98,22 @@ class UserLogoutView(LoginRequiredMixin, View):
         logout(request)
         messages.success(request, "you've been logged out successfully", 'success')
         return redirect('product:home')
+
+
+class UserPasswordResetView(auth_views.PasswordResetView):
+    template_name = 'customer/password_reset_form.html'
+    success_url = reverse_lazy('customer:password_reset_done')
+    email_template_name = 'customer/password_reset_email.html'
+
+
+class UserPasswordResetDoneView(auth_views.PasswordResetDoneView):
+    template_name = 'customer/password_reset_done.html'
+
+
+class UserPasswordResetConfirmView(auth_views.PasswordResetConfirmView):
+    template_name = 'customer/password_reset_confirm.html'
+    success_url = reverse_lazy('customer:password_reset_complete')
+
+
+class UserPasswordResetCompleteView(auth_views.PasswordResetCompleteView):
+    template_name = 'customer/password_reset_complete.html'
