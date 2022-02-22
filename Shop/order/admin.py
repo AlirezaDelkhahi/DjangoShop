@@ -6,13 +6,15 @@ from .models import Coupon, Cart, CartItem
 @admin.register(Coupon)
 class CouponAdmin(admin.ModelAdmin):
     list_display = ['code', 'value', 'type', 'max_price', 'valid_from', 'valid_to', 'is_active']
+    fields = ['code', 'value', 'type', 'max_price', 'valid_from', 'valid_to']
     search_fields = ('code',)
     list_filter = ['last_updated']
 
 
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
-    list_display = ['customer', 'coupon', 'address']
+    list_display = ['customer', 'final_price', 'total_price']
+    fields = ['customer', 'address', 'coupon']
     search_fields = ('customer', 'address')
     list_filter = ['last_updated']
 
@@ -20,5 +22,6 @@ class CartAdmin(admin.ModelAdmin):
 @admin.register(CartItem)
 class CartItemAdmin(admin.ModelAdmin):
     list_display = ['product', 'quantity', 'final_price']
+    fields = ['product', 'quantity', 'cart']
     search_fields = ('product', )
     list_filter = ['last_updated']
