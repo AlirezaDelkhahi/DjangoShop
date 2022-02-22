@@ -79,7 +79,7 @@ class DetailBrand(View):
         """
         brand: Brand = Brand.objects.get(id=kwargs['brand_id'])
         if not brand.products.all():  # category products is empty
-            return redirect('product:home')
+            return redirect('product:brand-list')
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request, brand_id):
