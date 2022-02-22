@@ -8,8 +8,8 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path(''),
-    path('customer', include('customer.urls', namespace='customer')),
+    path('customer/', include('customer.urls', namespace='customer')),
     path('', include('product.urls', namespace='product')),
-    path('order', include('order.urls', namespace='order')),
+    path('order/', include('order.urls', namespace='order')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
