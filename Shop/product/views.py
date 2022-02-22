@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 
-from .models import Category, Product
+from .models import Category, Product, Brand
 # Create your views here.
 
 
@@ -52,3 +52,10 @@ class DetailProduct(View):
 
     def post(self, requset, product_id):
         pass
+
+
+class ListBrand(View):
+    template_name = 'product/brands.html'
+
+    def get(self, request):
+        return render(request, self.template_name, {'brands': Brand.objects.all()})
