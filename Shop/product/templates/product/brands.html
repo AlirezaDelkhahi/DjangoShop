@@ -1,0 +1,23 @@
+{% extends 'shop/_base.html' %}
+{% block Title %}{{ category.name }} | Products{% endblock %}
+
+{% block Contents %}
+    <div class="container-fluid bg-dark text-white"  style="height:100vh;">
+        <div class="row justify-content-around">
+            {% for brand in brands %}
+                <div class="col-12 col-sm-10 col-md-3 card p-0 text-center">
+                    <img src="{{brand.thumbnail.url}}" class="card-img-top img-responsive img-fluid" style="max-height: 220px" alt="{{ brand.name }}">
+                    <h3 class="text-primary card-title m-3 p-1">{{ brand.name }}</h3>
+                    <p class="text-dark card-text p-1"><span style="font-weight: bolder">Country: </span>{{ brand.country }}</p>
+                    {% if brand.provider %}
+                        <p class="text-dark card-text p-1"><span style="font-weight: bolder">Provider: </span>{{ brand.provider.name }}</p>
+                    {% endif %}
+                {% if brand.description %}
+                    <p class="text-black card-text  p-1"><span style="font-weight: bolder">Details: </span>{{ brand.description }}</p>
+                {% endif %}
+                    <a href="" class="btn btn-primary m-2 p-1">Brand Products</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
