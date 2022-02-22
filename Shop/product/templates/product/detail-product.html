@@ -1,0 +1,26 @@
+{% extends 'shop/_base.html' %}
+{% block Title %}{{ product.name }}{% endblock %}
+
+{% block Contents %}
+    <div class="container-fluid bg-dark text-white"  style="height:100vh;">
+        <div class="row justify-content-around">
+                <div class="col-12 col-sm-10 col-md-7 card p-0 text-center">
+                    <img src="{{product.image.url}}" class="card-img-top img-responsive img-fluid" style="max-height: 220px" alt="{{ product.name }}">
+                    <h3 class="text-primary card-title m-3 p-1">{{ product.name }}</h3>
+                    <p class="text-dark card-text p-1"><span style="font-weight: bolder">Details: </span>{{ product.description }}</p>
+                    {% if product.category %}
+                        <p class="text-dark card-text p-1"><span style="font-weight: bolder">Category: </span>{{ product.category.name }}</p>
+                    {% endif %}
+                    {% if product.brand %}
+                        <p class="text-dark card-text p-1"><span style="font-weight: bolder">Brand: </span>{{ product.brand.name }}</p>
+                    {% endif %}
+                    {% if product.discount %}
+                        <h5 class="text-danger">Special Offer: {{ product.discount }}</h5>
+                    {% endif %}
+                    <p class="text-black card-text  p-1" style="font-weight:bolder">{{ product.price }}$</p>
+
+                    <a href="#" class="btn btn-primary m-2 p-1">add to cart</a>
+                </div>
+        </div>
+    </div>
+{% endblock %}
