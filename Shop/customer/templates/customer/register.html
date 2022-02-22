@@ -20,9 +20,8 @@
                     <form action="{% url 'customer:user-register' %}" class="form" method="POST">
                         {% csrf_token %}
                         {{ form.as_p }}
-                        <button type="submit" class="btn btn-success mt-3">Register</button>
+                        <button type="submit" class="btn btn-info mt-3">Register</button>
                     </form>
-
                 </div>
             </div>
         </div>
