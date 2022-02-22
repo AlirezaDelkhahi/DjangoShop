@@ -70,7 +70,7 @@ class Discount(BaseDiscount):
 class Product(BaseModel):
     name = models.CharField(max_length=100, verbose_name='Name')
     description = models.TextField(null=True, blank=True, verbose_name='Description')
-    slug = models.SlugField(null=True)
+    slug = models.SlugField(null=True, blank=True)
     price = models.IntegerField(verbose_name='Price')
     category = models.ForeignKey(Category, verbose_name='Category',
                                  related_name='products', null=True,
