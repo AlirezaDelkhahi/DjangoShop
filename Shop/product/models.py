@@ -42,6 +42,7 @@ class Brand(BaseModel):
     country = models.CharField(max_length=100, verbose_name='Brand Country')
     provider = models.ForeignKey(Provider, on_delete=models.SET_NULL, verbose_name='Brand Provider',
                                  null=True, blank=True)
+    thumbnail = models.FileField(default='Default-Images/default_brand.png')
     description = models.TextField(null=True, blank=True, verbose_name='Brand Details')
 
     class Meta:
