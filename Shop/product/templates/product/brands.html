@@ -15,7 +15,7 @@
                 {% if brand.description %}
                     <p class="text-black card-text  p-1"><span style="font-weight: bolder">Details: </span>{{ brand.description }}</p>
                 {% endif %}
-                    <a href="" class="btn btn-primary m-2 p-1">Brand Products</a>
+                    <a href="{% url 'product:brand-detail' brand.id %}" class="btn btn-primary m-2 p-1">Brand Products</a>
                 </div>
             {% endfor %}
         </div>
