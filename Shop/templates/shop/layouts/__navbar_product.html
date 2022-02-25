@@ -1,6 +1,7 @@
+{% load static %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand text-dark" href="#" style="font-weight:bolder">Alireza Shop</a>
+        <a class="navbar-brand text-dark" href="#" style="font-weight:bolder"><span><img class='rounded-circle user-image' src="{% static 'site-logo.png' %}"></span>  Alireza Shop</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -27,6 +28,9 @@
                     <a href="{% url 'product:brand-list' %}" class="nav-link">Brands</a>
                 </div>
             </li>
+                <div class="nav-item" style="position:absolute; right:2em;">
+                    <a href="#"><i class="fa fa-shopping-cart" style="font-size:1.5em;"></i></a>
+                </div>
             </ul>
         </div>
     </div>
