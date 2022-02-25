@@ -19,6 +19,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'customer:user-logout' %}">Logout</a>
                     </li>
+                    <li style="direction: rtl; position:absolute; right: 2em">
+                        <a href="#"><img class='user-image rounded-circle' src="{{user.customer.image.url}}" alt="80x80" data-holder-rendered="true"></a>
+                        <span class="text-white">{{user.email}}</span>
+                    </li>
                 {% endif %}
             </ul>
         </div>
