@@ -81,6 +81,10 @@ class Product(BaseModel):
     discount = models.ForeignKey(Discount, on_delete=models.SET_NULL, null=True, blank=True,
                                  verbose_name='Discount', related_name='products', default=None)
 
+    @property
+    def final_price(self):
+        return self.price - self.discount.profit_value(self.price) if self.discount else self.price
+        
     class Meta:
         ordering = ['-created']
 
