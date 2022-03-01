@@ -68,7 +68,8 @@ class Discount(BaseDiscount):
 
 
 class Product(BaseModel):
-    name = models.CharField(max_length=100, verbose_name='Name')
+    name = models.CharField(max_length=100, verbose_name='English name')
+    fa_name = models.CharField(max_length=100, verbose_name='Farsi name', null=True, blank=True )
     description = models.TextField(null=True, blank=True, verbose_name='Description')
     slug = models.SlugField(null=True, blank=True)
     price = models.IntegerField(verbose_name='Price')
