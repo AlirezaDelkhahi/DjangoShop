@@ -2,25 +2,40 @@
 {% block Title %}{{ product.name }}{% endblock %}
 
 {% block Contents %}
-    <div class="container-fluid bg-dark text-white"  style="height:100vh;">
-        <div class="row justify-content-around">
-                <div class="col-12 col-sm-10 col-md-7 card p-0 text-center">
-                    <img src="{{product.image.url}}" class="card-img-top img-responsive img-fluid" style="max-height: 220px" alt="{{ product.name }}">
-                    <h3 class="text-primary card-title m-3 p-1">{{ product.name }}</h3>
-                    <p class="text-dark card-text p-1"><span style="font-weight: bolder">Details: </span>{{ product.description }}</p>
-                    {% if product.category %}
-                        <p class="text-dark card-text p-1"><span style="font-weight: bolder">Category: </span>{{ product.category.name }}</p>
-                    {% endif %}
+    <div class="container-fluid text-dark p-0 m-0"  style="height:100vh; background-color:rgb(245, 245, 245)">
+        <div class="row justify-content-center">
+            <div class="col-6 p-5">
+                <img src="{{product.image.url}}" class="img-responsive img-fluid" alt="{{ product.name }}">
+            </div>
+            <div class="col-6 p-3">
+                {% if product.category %}
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item" class="text-primary" style="text-decoration:none;">{{ product.category.parent.name }}</li>
+                            <li class="breadcrumb-item active" aria-current="page"><a class="text-primary" href="{% url 'product:category-detail' product.category.id %}" style="text-decoration:none;">{{ product.category.name }}</a></li>
+                        </ol>
+                {% endif %}
+                <h1 class="text-dark mt-3 p-2">{{ product.fa_name }}</h1>
+                <h2 class="text-dark mt-3 p-2">{{ product.name }}</h2>
+                <p class=" p-1" style="color:rgb(97, 97, 97)">{{ product.description }}</p>
+                <hr>
+                {% if product.discount %}
+                        <h5 class="text-danger" style="font-size: 1em">Special Offer: <span class="badge bg-danger">{{ product.discount }}</span></h5>
+                        <del>{{product.price}}$</del>
+                        <h4>{{product.final_price}}$</h4>
+                        {% else %}
+                        <p class="text-black card-text  p-1" style="font-weight:bolder">{{ product.price }}$</p>
+                {% endif %}
+                <button>Add to cart</button>
+            </div>
+                <!-- <div class="col-12 col-sm-10 col-md-7 card p-0 text-center">                    
                     {% if product.brand %}
                         <p class="text-dark card-text p-1"><span style="font-weight: bolder">Brand: </span>{{ product.brand.name }}</p>
                     {% endif %}
-                    {% if product.discount %}
-                        <h5 class="text-danger">Special Offer: {{ product.discount }}</h5>
-                    {% endif %}
-                    <p class="text-black card-text  p-1" style="font-weight:bolder">{{ product.price }}$</p>
+                    
+                    
 
                     <a href="#" class="btn btn-primary m-2 p-1">add to cart</a>
-                </div>
+                </div> -->
         </div>
     </div>
 {% endblock %}
