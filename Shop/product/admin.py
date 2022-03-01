@@ -5,8 +5,8 @@ from .models import Product, Category, Discount, Brand, Provider
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'price']
-    fields = ['name', 'description', 'slug', 'category', 'price', 'image', 'brand', 'discount']
+    list_display = ['name', 'fa_name', 'price']
+    fields = ['name', 'fa_name', 'description', 'slug', 'category', 'price', 'image', 'brand', 'discount']
     search_fields = ('name',)
     list_filter = ['last_updated']
     prepopulated_fields = {'slug': ('description',)}
