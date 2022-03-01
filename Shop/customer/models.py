@@ -42,6 +42,10 @@ class Customer(BaseModel):
 
     class Meta:
         ordering = ['-created']
+        permissions = [
+            ('view_profile', 'Can view the customer profile page'),
+            ('edit_user_info', 'Can edit the customer User info')
+        ]
 
     def __str__(self):
         return f'{self.user}'
