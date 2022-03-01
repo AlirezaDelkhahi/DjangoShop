@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions
 from rest_framework.authentication import BasicAuthentication
-from .serializers import UserSerializer, AddressSerializer, CustomerSerializer
+from .serializers import UserSerializer, AddressSerializer, CustomerSerializer, CartItemSerializer, CartSerializer
 from customer.models import Address, Customer
 from core.models import User
-from .APIpermissions import IsOwnerPermission, IsSuperUserPermission
+from .permissions import IsOwnerPermission, IsSuperUserPermission, IsOwnerCartItemPermission
 import django_filters.rest_framework
 from rest_framework import filters
+from order.models import CartItem, Cart
 
 # -------User Detail/List------------------
 
@@ -49,6 +50,9 @@ class CustomerListView(generics.ListAPIView):
 
 
 # -------CartItem Detail/List------------------
-#TODO: CartItem API VIEWS
-# -------Cart Detail/List------------------
-#TODO: CartItem API VIEWS
+class CartItemListView(generics.ListAPIView):
+    serializer_class = CartItemSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return CartItem.objects.filter(cart__customer__user = self.request.user)
