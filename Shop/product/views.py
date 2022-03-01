@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-
+from django.views.generic import ListView, DetailView
 from .models import Category, Product, Brand
 # Create your views here.
 
@@ -10,11 +10,11 @@ def index(request):
         This view just returns last 10 products in a home template
     """
     cats = Category.objects.filter(parent__isnull=True).exclude(children__isnull=True)
-    products = Product.objects.all()[:10]
+    products = Product.objects.all()[:5]
     return render(request, 'product/index.html', {'cats': cats, 'products': products})
 
 
-class DetailCategory(View):
+class CategoryDetail(View):
     """
         This view returns a requested category to show products of it
     """
@@ -38,26 +38,7 @@ class DetailCategory(View):
         cat = Category.objects.get(id=category_id)
         return render(request, self.template_name, {'cat':cat})
 
-
-class DetailProduct(View):
-    """
-        this view returns more details about a requested product
-    """
-    template_name = 'product/detail-product.html'
-
-    def setup(self, request, *args, **kwargs):
-        self.product = get_object_or_404(Product, pk=kwargs['product_id'])
-        return super().setup(request, *args, **kwargs)
-
-    def get(self, request, product_id):
-        print(self.product.brand)
-        return render(request, self.template_name, {'product': self.product})
-
-    def post(self, requset, product_id):
-        pass
-
-
-class ListBrand(View):
+class BrandList(View):
     """
         This View shows all existing brands with a button to show products of them
     """
@@ -67,7 +48,7 @@ class ListBrand(View):
         return render(request, self.template_name, {'brands': Brand.objects.all()})
 
 
-class DetailBrand(View):
+class BrandDetail(View):
     """
         This view shows all existing products for a requested brand
     """
@@ -90,3 +71,23 @@ class DetailBrand(View):
         """
         brand = Brand.objects.get(id=brand_id)
         return render(request, self.template_name, {'brand': brand})
+
+class ProductDetail(View):
+    """
+        this view returns more details about a requested product
+    """
+    template_name = 'product/detail-product.html'
+
+    def setup(self, request, *args, **kwargs):
+        self.product = get_object_or_404(Product, pk=kwargs['product_id'])
+        return super().setup(request, *args, **kwargs)
+
+    def get(self, request, product_id):
+        print(self.product.brand)
+        return render(request, self.template_name, {'product': self.product})
+
+    def post(self, requset, product_id):
+        pass
+
+class ProductList(View):
+    pass
