@@ -62,3 +62,15 @@ class CartItemDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = CartItem.objects.all()
     permission_classes = [IsOwnerCartItemPermission, permissions.IsAuthenticated]
 
+# -------Cart Detail/List------------------
+class CartListView(generics.ListAPIView):
+    serializer_class = CartSerializer
+    permission_classes = [permissions.IsAuthenticated, IsOwnerCartItemPermission]
+
+    def get_queryset(self):
+        return Cart.objects.filter(customer__user = self.request.user)
+
+class CartDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer
+    permission_classes = [permissions.IsAuthenticated, IsOwnerPermission]
