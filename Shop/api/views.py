@@ -56,3 +56,9 @@ class CartItemListView(generics.ListAPIView):
 
     def get_queryset(self):
         return CartItem.objects.filter(cart__customer__user = self.request.user)
+
+class CartItemDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = CartItemSerializer
+    queryset = CartItem.objects.all()
+    permission_classes = [IsOwnerCartItemPermission, permissions.IsAuthenticated]
+
