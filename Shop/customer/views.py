@@ -8,7 +8,7 @@ from core.models import User
 from django.contrib import messages
 from .models import Customer
 from django.contrib.auth import views as auth_views
-
+import sweetify
 
 # Create your views here.
 
@@ -45,9 +45,10 @@ class UserRegisterView(View):
             cd = form.cleaned_data
             new_user = User.objects.create_user(phone=cd['phone'], email=cd['email'], password=cd['password1'])
             Customer.objects.create(user=new_user, gender=cd['gender'])
-            messages.success(request, 'you registered successfully', 'success')
+            sweetify.toast(request, "you registered successfully", icon="success", timer=5000)
             return redirect('product:home')
         else:  # user sends wrong data in register form
+            sweetify.toast(request, "some entries are invalid, try again", icon="error", timer=5000)
             return render(request, self.template_name, {'form': form})
 
 
@@ -83,10 +84,11 @@ class UserLoginView(View):
             user = authenticate(request, username=clean_data['phone'], password=clean_data['password1'])
             if user is not None:  # user exists and passed of authentication
                 login(request, user)
-                messages.success(request, 'you logged in successfully', 'success')
+                sweetify.toast(request, "you logged in successfully.", icon="success", timer=5000)
                 return redirect('product:home')
             else:
-                messages.error(request, 'username or password is not correct', 'danger')
+                sweetify.toast(request, "username or password is not correct", icon="error", timer=5000)
+
         return render(request, self.template_name, {'form': form})
 
 
@@ -96,7 +98,7 @@ class UserLogoutView(LoginRequiredMixin, View):
     """
     def get(self, request):
         logout(request)
-        messages.success(request, "you've been logged out successfully", 'success')
+        sweetify.toast(request, "You've been logged out successfully.", icon="success", timer=5000)
         return redirect('product:home')
 
 
