@@ -1,20 +1,16 @@
 {% extends 'shop/_base.html' %}
 {% block Title %}خانه{% endblock %}
-{% block Slider %}
-    <img class="col-12 img-fluid m-0 p-0" src="../../media/default_banner.jpg" alt="1">
-{% endblock %}
-
 
 {% block Contents %}
-    <div class="container-fluid bg-dark text-white"  style="height:100vh; text-align:right">
-        <div class="row pt-5 justify-content-around">
+    <div class="container-fluid contents">
+        <div class="row pt-5 pb-5 justify-content-around">
             {% for product in products %}
                 <div class="col-12 col-sm-10 col-md-3 card p-0 text-center">
                     <img src="{{product.image.url}}" class="card-img-top img-responsive img-fluid" style="max-height: 220px" alt="{{ product.name }}">
                     <a href="{% url 'product:product-detail' product.id %}"> <h3 class="text-primary card-title m-3 p-1">{{ product.name }}</h3></a>
                     <p class="text-dark card-text p-1">{{ product.description }}</p>
                     <p class="text-black card-text  p-1" style="font-weight:bolder">{{ product.price }}$</p>
-                    <a href="#" class=""><button class="w-100">add to cart</button></a>
+                    <a href="#" class=""><button class="button-2">add to cart</button></a>
                 </div>
             {% endfor %}
         </div>
