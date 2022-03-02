@@ -1,3 +1,5 @@
+{% load sweetify %}
+{% sweetify %}
 {% if messages %}
     {% for msg in messages %}
         <p class="alert m-0 alert-{{ msg.tags }}">{{ msg }}</p>
