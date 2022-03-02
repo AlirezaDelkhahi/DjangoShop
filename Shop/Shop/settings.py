@@ -199,9 +199,8 @@ INSTALLED_APPS = [
     'product.apps.ProductConfig',
     'customer.apps.CustomerConfig',
     'api.apps.ApiConfig',
-    'django_filters'
-    
-,
+    'django_filters',
+    'sweetify',
 ]
 
 MIDDLEWARE = [
