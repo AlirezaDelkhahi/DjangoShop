@@ -6,97 +6,124 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    
+    <!-- custom title -->
+    <title>{% block Title %}{% endblock %}</title>
+    
+    <!-- sweet alert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    {% block Styles %}{% endblock %}
-    <title>{% block Title %}{% endblock %}</title>
+    
+    <!-- main css file -->
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    
+    <!-- main css file -->
+    <link rel="stylesheet" href="{% static 'css/buttons.css' %}">
 
+    <!-- extra links -->
+    {% block Styles %}{% endblock %}
+    
 </head>
 <body>
 <div class="container-fluid p-0">
-    <div class="row" id="nav2-container">
-        <!-- nav 1 -->
-        {% include 'shop/layouts/__navbar_product.html' %}
-    </div>
-    <div class="row" id="nav1-container">
-        <!-- nav 2 -->
-        {% include 'shop/layouts/__navbar_user.html' %}
-    </div>
-    {% include 'shop/layouts/__messages.html' %}
-    <div class="row" id="slider-container">
-        <!-- slider -->
-        {% block Slider %}{% endblock %}
-    </div>
+    
+    {% block prod_nav %}
+        <div class="row" id="nav2-container">
+            <!-- nav 1 -->
+            {% include 'shop/layouts/__navbar_product.html' %}
+        </div>
+    {% endblock  %}
 
+    
+    {% block user_nav %}
+        <div class="row" id="nav1-container">
+            <!-- nav 2 -->
+            {% include 'shop/layouts/__navbar_user.html' %}
+        </div>
+    {% endblock %}
+        
+    {% include 'shop/layouts/__messages.html' %}
+
+    {% block Slider%}
+        <div class="row" id="slider-container">
+            {% include 'shop/layouts/__slider.html' %}
+        </div>
+    {% endblock %}
+
+    
     <div class="row" id="main-container">
         <div class="col-12" id="left-sidebar">
             {% block Contents %}{% endblock %}
         </div>
-{#        <div class="col-2" id="right-sidebar">#}
-{#            {% block Sidebar %}{% endblock %}#}
-{#        </div>#}
     </div>
-    <div class="row">
-        <!-- Footer -->
-        <footer class="bg-dark text-center text-white">
-            <!-- Grid container -->
-            <div class="container p-4">
-                <!-- Section: Social media -->
-                <section class="mb-4">
-                    <!-- Facebook -->
-                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-                    ><i class="fab fa-facebook-f"></i
-                    ></a>
+        
+    
+    {% block Footer %}
+        <div class="row">
+            <!-- Footer -->
+            <footer class="bg-dark text-center text-white">
+                <!-- Grid container -->
+                <div class="container p-4">
+                    <!-- Section: Social media -->
+                    <section class="mb-4">
+                        <!-- Facebook -->
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+                        ><i class="fab fa-facebook-f"></i
+                        ></a>
 
-                    <!-- Twitter -->
-                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-                    ><i class="fab fa-twitter"></i
-                    ></a>
+                        <!-- Twitter -->
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+                        ><i class="fab fa-twitter"></i
+                        ></a>
 
-                    <!-- Google -->
-                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-                    ><i class="fab fa-google"></i
-                    ></a>
+                        <!-- Google -->
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+                        ><i class="fab fa-google"></i
+                        ></a>
 
-                    <!-- Instagram -->
-                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-                    ><i class="fab fa-instagram"></i
-                    ></a>
+                        <!-- Instagram -->
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+                        ><i class="fab fa-instagram"></i
+                        ></a>
 
-                    <!-- Linkedin -->
-                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-                    ><i class="fab fa-linkedin-in"></i
-                    ></a>
+                        <!-- Linkedin -->
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+                        ><i class="fab fa-linkedin-in"></i
+                        ></a>
 
-                    <!-- Github -->
-                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-                    ><i class="fab fa-github"></i
-                    ></a>
-                </section>
+                        <!-- Github -->
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+                        ><i class="fab fa-github"></i
+                        ></a>
+                    </section>
 
-                <section class="mb-4">
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
-                        repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam
-                        eum harum corrupti dicta, aliquam sequi voluptate quas.
-                    </p>
-                </section>
-                <!-- Section: Text -->
-            </div>
-            <!-- Grid container -->
+                    <section class="mb-4">
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
+                            repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam
+                            eum harum corrupti dicta, aliquam sequi voluptate quas.
+                        </p>
+                    </section>
+                    <!-- Section: Text -->
+                </div>
+                <!-- Grid container -->
 
-            <!-- Copyright -->
-            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-                © 2022 Copyright:
-                <a class="text-white" href="#">www.alirezaShop.com</a>
-            </div>
-            <!-- Copyright -->
-        </footer>
-        <!-- Footer -->
-    </div>
+                <!-- Copyright -->
+                <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                    © 2022 Copyright:
+                    <a class="text-white" href="#">www.alirezaShop.com</a>
+                </div>
+                <!-- Copyright -->
+            </footer>
+            <!-- Footer -->
+        </div>
+    {% endblock  %}
+        
 </div>
 
 <!-- bootstrap -->
@@ -107,6 +134,7 @@
 
 <!-- Main Javascript -->
 <script src="{% static 'javascript/main.js' %}"></script>
+
 
 {% block Scripts %}{% endblock %}
 
