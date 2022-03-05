@@ -1,14 +1,20 @@
 from django.contrib import admin
-from .models import Product, Category, Discount, Brand, Provider
+from .models import Product, Category, Discount, Brand, Provider, ProductImage
 # Register your models here.
 
+
+class ProductImageInline(admin.TabularInline):
+    model = ProductImage
+    fields = ['image', 'product', 'is_main']
+    extra = 3
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['name', 'fa_name', 'price']
-    fields = ['name', 'fa_name', 'description', 'slug', 'category', 'price', 'image', 'brand', 'discount']
+    fields = ['name', 'fa_name', 'description', 'slug', 'category', 'price', 'brand', 'discount']
     search_fields = ('name',)
     list_filter = ['last_updated']
+    inlines = [ProductImageInline]
     prepopulated_fields = {'slug': ('description',)}
 
 
