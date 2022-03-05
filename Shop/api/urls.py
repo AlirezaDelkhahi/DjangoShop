@@ -1,6 +1,6 @@
 # Shop Url configs
 from django.urls import path, include
-from .views import UserListView, AddressDetailView, AddressListView, UserDetailView, CustomerDetailView, CustomerListView, CartItemListView, CartItemDetailView, CartListView, CartDetailView
+from .views import UserListView, AddressDetailView, AddressListView, UserDetailView, CustomerDetailView, CustomerListView, CartItemListView, CartItemDetailView, OrderListView, OrderDetailView
 
 app_name = 'api'
 
@@ -13,6 +13,6 @@ urlpatterns = [
     path('customer-list/', CustomerListView.as_view(), name='customer-list'),
     path('cartitem-list/', CartItemListView.as_view(), name='cartitem-list'),
     path('cartitem-detail/<pk>', CartItemDetailView.as_view(), name='cartitem-detail'),
-    path('cart-list/', CartListView.as_view(), name='cart-list'),
-    path('cart-detail/<pk>', CartDetailView.as_view(), name='cart-detail'),
+    path('order-list/', OrderListView.as_view(), name='order-list'),
+    path('order-detail/<pk>', OrderDetailView.as_view(), name='order-detail'),
 ]

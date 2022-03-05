@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions
 from rest_framework.authentication import BasicAuthentication
-from .serializers import UserSerializer, AddressSerializer, CustomerSerializer, CartItemSerializer, CartSerializer
+from .serializers import UserSerializer, AddressSerializer, CustomerSerializer, CartItemSerializer, OrderSerializer
 from customer.models import Address, Customer
 from core.models import User
 from .permissions import IsOwnerPermission, IsSuperUserPermission, IsOwnerCartItemPermission
 import django_filters.rest_framework
 from rest_framework import filters
-from order.models import CartItem, Cart
+from order.models import CartItem, Order
 
 # -------User Detail/List------------------
 
@@ -55,7 +55,7 @@ class CartItemListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return CartItem.objects.filter(cart__customer__user = self.request.user)
+        return CartItem.objects.filter(order = self.request.user)
 
 class CartItemDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CartItemSerializer
@@ -63,14 +63,14 @@ class CartItemDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerCartItemPermission, permissions.IsAuthenticated]
 
 # -------Cart Detail/List------------------
-class CartListView(generics.ListAPIView):
-    serializer_class = CartSerializer
+class OrderListView(generics.ListAPIView):
+    serializer_class = OrderSerializer
     permission_classes = [permissions.IsAuthenticated, IsOwnerCartItemPermission]
 
     def get_queryset(self):
-        return Cart.objects.filter(customer__user = self.request.user)
+        return Order.objects.filter(customer__user = self.request.user)
 
-class CartDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Cart.objects.all()
-    serializer_class = CartSerializer
+class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
     permission_classes = [permissions.IsAuthenticated, IsOwnerPermission]

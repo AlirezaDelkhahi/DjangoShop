@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Coupon, Cart, CartItem
+from .models import Coupon, Order, CartItem
 # Register your models here.
 
 
@@ -11,8 +11,8 @@ class CouponAdmin(admin.ModelAdmin):
     list_filter = ['last_updated']
 
 
-@admin.register(Cart)
-class CartAdmin(admin.ModelAdmin):
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
     list_display = ['customer', 'final_price', 'total_price']
     fields = ['customer', 'address', 'coupon']
     search_fields = ('customer', 'address')

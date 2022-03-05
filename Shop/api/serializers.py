@@ -2,7 +2,7 @@ from rest_framework import serializers
 from customer.models import Address
 from core.models import User
 from customer.models import Customer
-from order.models import Cart, CartItem
+from order.models import Order, CartItem
 
 
 class AddressSerializer(serializers.ModelSerializer):
@@ -26,9 +26,9 @@ class CustomerSerializer(serializers.ModelSerializer):
 class CartItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartItem
-        fields = ['quantity', 'product', 'cart', 'final_price']
+        fields = ['quantity', 'product', 'order', 'final_price']
 
-class CartSerializer(serializers.ModelSerializer):
+class OrderSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Cart
+        model = Order
         fields = ['customer', 'address', 'coupon', 'items']

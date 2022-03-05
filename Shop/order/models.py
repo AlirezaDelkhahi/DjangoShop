@@ -22,7 +22,7 @@ class Coupon(BaseDiscount):
 class CartItem(BaseModel):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Item')
     quantity = models.IntegerField(default=1, verbose_name='Quantity')
-    cart = models.ForeignKey('Cart', on_delete=models.CASCADE, related_name='items', null=True, blank=True)
+    order = models.ForeignKey('Order', on_delete=models.CASCADE, related_name='items', null=True, blank=True)
     final_price = models.IntegerField(default=0, null=True, blank=True)
 
     class Meta:
@@ -47,7 +47,7 @@ class CartItem(BaseModel):
         return f'{self.product.name}: {self.quantity}x'
 
 
-class Cart(BaseModel):
+class Order(BaseModel):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE,
                                     verbose_name='Customer', related_name='customer',
                                     null=True, blank=True)
@@ -74,6 +74,9 @@ class Cart(BaseModel):
             :return final_price:
         """
         self.final_price = (self.total_price - self.coupon.profit_value(self.final_price)) if self.coupon else self.total_price
+
+    def close_order(self):
+        self.is_active = False
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         """
