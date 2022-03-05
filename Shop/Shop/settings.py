@@ -112,6 +112,19 @@ JAZZMIN_SETTINGS = {
         "auth": "fas fa-users-cog",
         "auth.user": "fas fa-user",
         "auth.Group": "fas fa-users",
+        "core.User":"fas fa-user",
+        "customer.Address":"fa fa-location-arrow",
+        "customer.Customer":"fas fa-user",
+        "order.CartItem":"fa fa-cart-plus",
+        "order.Order":"fa fa-shopping-cart",
+        "order.Coupon":"fa fa-percent",
+        "product.Product":"	fas fa-tablet-alt",
+        "product.Brand":"fa fa-building",
+        "product.Discount":"fa fa-percent",
+        "product.Category":"fa fa-list-alt",
+        "product.Provider":"fas fa-city",
+
+
     },
     # Icons that are used when one is not manually specified
     "default_icon_parents": "fas fa-chevron-circle-right",
@@ -141,7 +154,7 @@ JAZZMIN_SETTINGS = {
     # - vertical_tabs
     # - collapsible
     # - carousel
-    "changeform_format": "horizontal_tabs",
+    "changeform_format": "collapsible",
     # override change forms on a per modeladmin basis
     "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
     # Add a language dropdown into the admin
@@ -316,6 +329,10 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 
 }
+
+# Sesssion Engine Settings
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+
 
 
 # logging config
