@@ -1,4 +1,9 @@
 {% load static %}
+
+{% block Styles %}
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock  %}
+    
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand text-dark" href="#" style="font-weight:bolder"><span><img class='rounded-circle user-image' src="{% static 'site-logo.png' %}"></span>  Alireza Shop</a>
@@ -29,9 +34,54 @@
                 </div>
             </li>
                 <div class="nav-item" style="position:absolute; right:2em;">
-                    <a href="#"><i class="fa fa-shopping-cart" style="font-size:1.5em;"></i></a>
+                    <a href="#" class="posision-relative" id="cart" style="text-decoration:none; color:black;">
+                        Cart
+                        <i class="fa fa-shopping-cart" style="font-size:1.2em;"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="opacity:0.5">0</span>
+                    </a>
                 </div>
             </ul>
         </div>
     </div>
 </nav>
+ 
+
+{% block Cart %}
+    <div class="shopping-cart" style="display:none">
+      <div class="shopping-cart-header">
+        <i class="fa fa-shopping-cart cart-icon"></i><span class="badge">3</span>
+        <div class="shopping-cart-total">
+          <span class="lighter-text">Total:</span>
+          <span class="main-color-text">$2,229.97</span>
+        </div>
+      </div> <!--end shopping-cart-header -->
+  
+      <ul class="shopping-cart-items">
+        <li class="clearfix">
+          <!-- <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item1.jpg" alt="item1" /> -->
+          <span class="item-name">Sony DSC-RX100M III</span>
+          <span class="item-price">$849.99</span>
+          <span class="item-quantity">Quantity: 01</span>
+        </li>
+  
+        <li class="clearfix">
+          <!-- <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item2.jpg" alt="item1" /> -->
+          <span class="item-name">KS Automatic Mechanic...</span>
+          <span class="item-price">$1,249.99</span>
+          <span class="item-quantity">Quantity: 01</span>
+        </li>
+  
+        <li class="clearfix">
+          <!-- <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item3.jpg" alt="item1" /> -->
+          <span class="item-name">Kindle, 6" Glare-Free To...</span>
+          <span class="item-price">$129.99</span>
+          <span class="item-quantity">Quantity: 01</span>
+        </li>
+      </ul>
+  
+      <a href="#" class="button">Checkout</a>
+    </div> <!--end shopping-cart -->
+
+        
+{% endblock  %}
+    
