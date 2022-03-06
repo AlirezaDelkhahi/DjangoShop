@@ -331,7 +331,7 @@ REST_FRAMEWORK = {
 }
 
 # Sesssion Engine Settings
-SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 
 
