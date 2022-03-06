@@ -13,3 +13,21 @@
 .contents{
     background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(90,92,106,1) 0%, rgba(32,45,58,1) 81.3% );
 }
+
+.splide__slide {
+    opacity: 0.3;
+  }
+  
+  .splide__slide.is-active {
+    opacity: 1;
+  }
+  .my-slider-progress {
+  background: #ccc;
+}
+
+.my-slider-progress-bar {
+  background: greenyellow;
+  height: 2px;
+  transition: width 400ms ease;
+  width: 0;
+}
