@@ -5,7 +5,7 @@ from .models import Product, Category, Discount, Brand, Provider, ProductImage
 
 class ProductImageInline(admin.TabularInline):
     model = ProductImage
-    fields = ['image', 'product', 'is_main']
+    fields = ['pic', 'product', 'is_main']
     extra = 3
 
 @admin.register(Product)
