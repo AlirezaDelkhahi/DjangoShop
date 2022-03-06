@@ -1,33 +1,60 @@
 {% extends 'shop/_base.html' %}
+{% load static %}
 {% block Title %}{{ product.name }}{% endblock %}
 
+{% block Styles %}
+    <link rel="stylesheet" href="{% static 'css/splide-skyblue.min.css' %}">
+{% endblock  %}
+
 {% block Contents %}
-    <div class="container-fluid text-dark p-0 m-0"  style="height:100vh; background-color:rgb(245, 245, 245)">
+    <div class="container-fluid text-dark p-0 m-0"  style="background-color:rgb(245, 245, 245)">
         <div class="row justify-content-center ">
-            <div class="col-6 p-5">
-                <img src="{{product.image.url}}" class="img-responsive img-fluid" alt="{{ product.name }}">
+            <div class="col-12 col-sm-6 p-5">
+                <div id="image-slider" class="splide">
+                    <div class="splide__track">
+                        <ul class="splide__list">
+                            {% for image in product.images.all %}
+                                <li class="splide__slide">
+                                    <img src="{{image.pic.url}}">
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div id="thumbnail-slider" class="splide mt-3">
+                    <div class="splide__track">
+                        <ul class="splide__list">
+                            {% for image in product.images.all %}
+                                <li class="splide__slide">
+                                    <img src="{{image.pic.url}}">
+                                </li>
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="col-6 p-3">
+            <div class="col-12 col-sm-6 p-3">
                 {% if product.category %}
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item" class="text-primary" style="text-decoration:none;">{{ product.category.parent.name }}</li>
-                            <li class="breadcrumb-item active" aria-current="page"><a class="text-primary" href="{% url 'product:category-detail' product.category.id %}" style="text-decoration:none;">{{ product.category.name }}</a></li>
-                        </ol>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item" class="text-primary" style="text-decoration:none;">{{ product.category.parent.name }}</li>
+                        <li class="breadcrumb-item active" aria-current="page"><a class="text-primary" href="{% url 'product:category-detail' product.category.id %}" style="text-decoration:none;">{{ product.category.name }}</a></li>
+                    </ol>
                 {% endif %}
-                <h1 class="text-dark mt-3 p-2">{{ product.fa_name }}</h1>
-                <h2 class="text-dark mt-3 p-2">{{ product.name }}</h2>
-                <p class=" p-1" style="color:rgb(97, 97, 97)">{{ product.description }}</p>
+                <h1 class="text-dark mt-3 p-2" style="direction:rtl">{{ product.fa_name }}</h1>
+                <h2 class="text-dark mt-3 p-2" style="direction:rtl">{{ product.name }}</h2>
+                <p class=" p-1" style="color:rgb(97, 97, 97); direction:rtl">{{ product.description }}</p>
                 <hr>
                 {% if product.discount %}
-                        <h5 class="text-danger" style="font-size: 1em">Special Offer: <span class="badge bg-danger">{{ product.discount }}</span></h5>
-                        <del>{{product.price}}$</del>
-                        <h4>{{product.final_price}}$</h4>
-                        {% else %}
-                        <p class="text-black card-text  p-1" style="font-weight:bolder">{{ product.price }}$</p>
+                    <h5 class="text-danger" style="font-size: 1em">Special Offer: <span class="badge bg-danger">{{ product.discount }}</span></h5>
+                    <del>{{product.price}}$</del>
+                    <h4>{{product.final_price}}$</h4>
+                {% else %}
+                    <p class="text-black card-text  p-1" style="font-weight:bolder; ">{{ product.price }}$</p>
                 {% endif %}
                 <button class="button-1">Add to cart</button>
             </div>
-                <!-- <div class="col-12 col-sm-10 col-md-7 card p-0 text-center">                    
+            <!-- <div class="col-12 col-sm-10 col-md-7 card p-0 text-center">
                     {% if product.brand %}
                         <p class="text-dark card-text p-1"><span style="font-weight: bolder">Brand: </span>{{ product.brand.name }}</p>
                     {% endif %}
@@ -39,3 +66,38 @@
         </div>
     </div>
 {% endblock %}
+
+
+
+{% block Scripts %}
+    <script src="{% static 'javascript/splide.min.js' %}"></script>
+    <script>
+        let main = new Splide( '#image-slider', {
+            cover      : true,
+            heightRatio: 0.7,
+            type: 'loop',
+            pagination: false,
+            arrows: false,
+        } );
+        let thumbnails = new Splide( '#thumbnail-slider', {
+            fixedWidth  : 100,
+            fixedHeight : 60,
+            gap         : 0,
+            rewind      : true,
+            pagination  : false,
+            cover       : true,
+            isNavigation: false,
+            breakpoints : {
+                600: {
+                    fixedWidth : 60,
+                    fixedHeight: 44,
+                },
+            },
+        } );
+        main.sync( thumbnails );
+        main.mount();
+        thumbnails.mount();
+
+    </script>
+{% endblock  %}
+    
