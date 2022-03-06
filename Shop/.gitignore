@@ -4,6 +4,9 @@
 #migrations
 *.xml
 
+#media images
+media
+
 #vscode settings
 .vscode
 
