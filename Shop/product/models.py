@@ -67,9 +67,9 @@ class Discount(BaseDiscount):
         return f'{self.value}$'
 
 class ProductImage(BaseModel):
-    image = models.FileField(default='Default-Images/product_default.jpg', upload_to='images/products/', verbose_name='Product Images', blank=True, null=True)
+    pic = models.FileField(default='Default-Images/product_default.jpg', upload_to='Products/', verbose_name='Product Images', blank=True, null=True)
     is_main = models.BooleanField(verbose_name='Is Main Image', default=False, null=True, blank=True)
-    product = models.ForeignKey('Product', on_delete=models.CASCADE, null=True, blank=True)
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='images',null=True, blank=True)
 
 class Product(BaseModel):
     name = models.CharField(max_length=100, verbose_name='English name')
