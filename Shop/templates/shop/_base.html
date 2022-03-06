@@ -33,22 +33,24 @@
 <div class="container-fluid p-0">
     
     {% block prod_nav %}
-        <div class="row" id="nav2-container">
-            <!-- nav 1 -->
-            {% include 'shop/layouts/__navbar_product.html' %}
-        </div>
+    <div class="row" id="nav2-container">
+        <!-- nav 1 -->
+        {% include 'shop/layouts/__navbar_product.html' %}
+    </div>
     {% endblock  %}
-
+    
     
     {% block user_nav %}
-        <div class="row" id="nav1-container">
-            <!-- nav 2 -->
-            {% include 'shop/layouts/__navbar_user.html' %}
-        </div>
+    <div class="row" id="nav1-container">
+        <!-- nav 2 -->
+        {% include 'shop/layouts/__navbar_user.html' %}
+    </div>
     {% endblock %}
-        
+    
     {% include 'shop/layouts/__messages.html' %}
-
+    
+    {% block Cart %}{% endblock  %}
+    
     {% block Slider%}
         <div class="row" id="slider-container">
             {% include 'shop/layouts/__slider.html' %}
@@ -57,14 +59,13 @@
 
     
     <div class="row" id="main-container">
-        <div class="col-12" id="left-sidebar">
+        <div class="col-12" id="content-column">
             {% block Contents %}{% endblock %}
         </div>
     </div>
-        
     
     {% block Footer %}
-        <div class="row">
+    <div class="row" style='posistion:absolute; bottom:0; display:block;'>
             <!-- Footer -->
             <footer class="bg-dark text-center text-white">
                 <!-- Grid container -->
@@ -123,6 +124,7 @@
             <!-- Footer -->
         </div>
     {% endblock  %}
+
         
 </div>
 
@@ -138,6 +140,13 @@
 <!-- jquery cookie plugin -->
 <script src="{% static 'javascript/jquery.cookie.js' %}"></script>
 
+<script>
+    (function(){
+        $("#cart").on("click", function() {
+        $(".shopping-cart").fadeToggle( "fast");
+        });
+    })();
+</script>
 {% block Scripts %}{% endblock %}
 
 </body>
