@@ -2,8 +2,8 @@
 {% block Title %}خانه{% endblock %}
 
 {% block Contents %}
-    <div class="container-fluid contents">
-        <div class="row pt-5 pb-5 justify-content-around">
+    <div class="container-fluid">
+        <div class="row pt-2 pb-5 justify-content-around">
             {% for product in products %}
                 {% include 'product/product_card.html' %}
             {% endfor %}
