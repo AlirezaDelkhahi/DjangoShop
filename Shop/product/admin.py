@@ -8,6 +8,15 @@ class ProductImageInline(admin.TabularInline):
     fields = ['pic', 'product', 'is_main']
     extra = 3
 
+class ProductInline(admin.TabularInline):
+    model = Product
+    fields = ['name', 'fa_name', 'description', 'price']
+    extra = 3
+
+class BrandInline(admin.TabularInline):
+    model = Brand
+    fields = ['name', 'country', 'thumbnail', 'description']
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['name', 'fa_name', 'price']
@@ -23,6 +32,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name']
     fields = ['name', 'thumbnail', 'parent']
     search_fields = ('name',)
+    inlines = [ProductInline]
     list_filter = ['last_updated']
 
 
@@ -32,6 +42,7 @@ class DiscountAdmin(admin.ModelAdmin):
     fields = ['value', 'type', 'max_price', 'expire_date', 'is_active']
     search_fields = ('value', 'type',)
     list_filter = ['last_updated']
+    inlines = [ProductInline]
 
 
 @admin.register(Brand)
@@ -40,6 +51,7 @@ class BrandAdmin(admin.ModelAdmin):
     fields = ['name', 'country', 'provider', 'thumbnail', 'description']
     search_fields = ('name', 'provider', 'country')
     list_filter = ['last_updated']
+    inlines = [ProductInline]
 
 
 @admin.register(Provider)
@@ -48,3 +60,4 @@ class ProviderAdmin(admin.ModelAdmin):
     fields = ['name', 'description', 'address']
     search_fields = ('name', )
     list_filter = ['last_updated']
+    inlines = [BrandInline]
