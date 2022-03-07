@@ -41,28 +41,19 @@
                         <li class="breadcrumb-item active" aria-current="page"><a class="text-primary" href="{% url 'product:category-detail' product.category.id %}" style="text-decoration:none;">{{ product.category.name }}</a></li>
                     </ol>
                 {% endif %}
-                <h1 class="text-dark mt-3 p-2" style="direction:rtl">{{ product.fa_name }}</h1>
+                <h1 class="text-dark mt-3 p-2" style="direction:rtl; font-family:'Byekan'">{{ product.fa_name }}</h1>
                 <h2 class="text-dark mt-3 p-2" style="direction:rtl">{{ product.name }}</h2>
-                <p class=" p-1" style="color:rgb(97, 97, 97); direction:rtl">{{ product.description }}</p>
+                <p class=" p-1" style="color:rgb(97, 97, 97); direction:rtl; font-family:'Byekan'">{{ product.description }}</p>
                 <hr>
                 {% if product.discount %}
                     <h5 class="text-danger" style="font-size: 1em">Special Offer: <span class="badge bg-danger">{{ product.discount }}</span></h5>
-                    <del>{{product.price}}$</del>
+                    <h6 class="product-old-price">{{product.price}}$</h6>
                     <h4>{{product.final_price}}$</h4>
                 {% else %}
                     <p class="text-black card-text  p-1" style="font-weight:bolder; ">{{ product.price }}$</p>
                 {% endif %}
-                <button class="button-1">Add to cart</button>
+                <button class="button-2" onclick="AddToCart('{{product.id}}', 1, `{% url 'order:cart' product.id 1 %}`)">Add to cart</button>
             </div>
-            <!-- <div class="col-12 col-sm-10 col-md-7 card p-0 text-center">
-                    {% if product.brand %}
-                        <p class="text-dark card-text p-1"><span style="font-weight: bolder">Brand: </span>{{ product.brand.name }}</p>
-                    {% endif %}
-                    
-                    
-
-                    <a href="#" class="btn btn-primary m-2 p-1">add to cart</a>
-                </div> -->
         </div>
     </div>
 {% endblock %}
@@ -74,7 +65,7 @@
     <script>
         let main = new Splide( '#image-slider', {
             cover      : true,
-            heightRatio: 0.7,
+            heightRatio: 0.85,
             type: 'loop',
             pagination: false,
             arrows: false,
@@ -86,7 +77,7 @@
             rewind      : true,
             pagination  : false,
             cover       : true,
-            isNavigation: false,
+            isNavigation: true,
             breakpoints : {
                 600: {
                     fixedWidth : 60,
@@ -100,4 +91,3 @@
 
     </script>
 {% endblock  %}
-    
