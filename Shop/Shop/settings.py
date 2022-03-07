@@ -239,6 +239,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'order.context_processors.cart',
+                'product.context_processors.category',
             ],
         },
     },
