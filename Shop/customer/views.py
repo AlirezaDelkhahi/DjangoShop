@@ -9,7 +9,8 @@ from django.contrib import messages
 from .models import Customer
 from django.contrib.auth import views as auth_views
 import sweetify
-
+from order.models import Order
+from order.cart import Cart
 # Create your views here.
 
 
@@ -59,6 +60,11 @@ class UserLoginView(View):
     template_name = 'customer/login.html'
     form = UserLoginForm
 
+    def setup(self, request, *args, **kwargs):
+        self.cart = Cart(request)
+        return super().setup(request, *args, **kwargs)
+
+
     def dispatch(self, request, *args, **kwargs):
         """
             checks if user is already logged in or not
@@ -84,10 +90,14 @@ class UserLoginView(View):
             user = authenticate(request, username=clean_data['phone'], password=clean_data['password1'])
             if user is not None:  # user exists and passed of authentication
                 login(request, user)
+                open_order = user.customer.orders.filter(is_active = True)
+                if not open_order.exists():
+                    open_order = Order.objects.create(customer=user.customer)
+                self.cart.session_merge_order(open_order.first())
                 sweetify.toast(request, "you logged in successfully.", icon="success", timer=5000)
                 return redirect('product:home')
             else:
-                sweetify.toast(request, "username or password is not correct", icon="error", timer=5000)
+                sweetify.toast(request, "username or password is not correct", icon="error", timer=10)
 
         return render(request, self.template_name, {'form': form})
 
