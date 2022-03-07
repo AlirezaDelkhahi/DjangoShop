@@ -7,6 +7,9 @@
 #media images
 media
 
+#static fonts
+fonts
+
 #vscode settings
 .vscode
 
