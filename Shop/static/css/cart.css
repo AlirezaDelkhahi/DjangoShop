@@ -27,6 +27,7 @@
 	width: 80%;
   }
  .shopping-cart {
+	 direction:rtl;
 	 margin: 20px 0;
 	 /* float: right; */
 	 background: white;
@@ -40,6 +41,7 @@
 	 z-index: 100;
 }
  .shopping-cart .shopping-cart-header {
+	 direction:ltr;
 	 border-bottom: 1px solid #e8e8e8;
 	 padding-bottom: 15px;
 }
@@ -62,7 +64,7 @@
 	 font-size: 16px;
 }
  .shopping-cart .shopping-cart-items .item-price {
-	 color: #6394f8;
+	 color: #2b3a57;
 	 margin-right: 8px;
 }
  .shopping-cart .shopping-cart-items .item-quantity {
