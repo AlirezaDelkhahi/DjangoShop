@@ -2,8 +2,14 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-}
 
+    text-decoration:none;
+}
+@font-face {
+  font-family: "Byekan";
+  src: url("../fonts/BYekan.eot");
+  src: url("../fonts/BYekan.woff") format("woff");
+}
 
 .user-image{
     max-height: 2.5em;
@@ -30,4 +36,11 @@
   height: 2px;
   transition: width 400ms ease;
   width: 0;
+}
+
+.card_button{
+  text-align: center;
+  bottom: 0.5em;
+  position: absolute!important;
+  width: 100%;
 }
