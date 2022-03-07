@@ -1,10 +1,30 @@
-<div class="col-12 col-sm-10 col-md-3 card p-0 text-center">
-    <img src="{{product.images.first.pic.url}}" class="card-img-top img-responsive img-fluid" style="max-height: 220px" alt="{{ product.name }}">
-    <a href="{% url 'product:product-detail' product.id %}">
-         <h3 class="text-primary card-title m-3 p-1">{{ product.name }}</h3>
-    </a>
-    <p class="text-dark card-text p-1">{{ product.description }}</p>
-    <p class="text-black card-text  p-1" style="font-weight:bolder">{{ product.price }}$</p>
-    <button onclick="AddToCart('{{product.id}}', 1, `{% url 'order:cart' product.id 1 %}`)" class="button-2">
-        add to cart</button>
+<div class="col-12 col-sm-10 col-md-3 card p-0 pb-3 text-center display-relative rounded shadow-sm" style="max-height:30em;">
+    <div class="container" style="height:100%;">
+        <div class="row" id="image-section" style="align-content:center">
+            
+            {% if product.discount %}
+                <div class="discount-badge"><span class="amount">{{product.discount}}</span><span class="icon fa fa fa-gift"></span></div>
+            {% endif %}
+            
+            <div class="col-12">
+                <img src="{{product.images.first.pic.url}}" class="card-img-top img-responsive img-fluid" style="height:15em; object-fit: cover;" alt="{{ product.name }}">
+            </div>
+        </div>        
+        <div class="row">
+            <div class="col-12">
+                <a href="{% url 'product:product-detail' product.id %}" style="text-decoration:none; color:rgb(53, 53, 53)">
+                    <h5 class="card-title m-3 p-1" style="font-size:0.9em; white-space:nowrap;">{{ product.name }}</h5>
+               </a>
+            </div>
+        </div>
+    <!-- <p class="text-dark card-text p-1">{{ product.description|truncatewords:10 }}</p> -->
+    <hr>
+    <div class="row">
+        <div class="col-12">
+            <p class="card-text  p-1" style="color:rgb(100, 100, 100)">{{ product.price }}$</p>
+            <button onclick="AddToCart('{{product.id}}', 1, `{% url 'order:cart' product.id 1 %}`, '{{request.user.is_authenticated}}')" class="button-2">
+                add to cart</button>
+        </div>
+    </div>
+    </div>
 </div>
