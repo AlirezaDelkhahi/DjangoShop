@@ -49,7 +49,7 @@ class CartItem(BaseModel):
 
 class Order(BaseModel):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE,
-                                    verbose_name='Customer', related_name='customer',
+                                    verbose_name='Customer', related_name='orders',
                                     null=True, blank=True)
     address = models.ForeignKey(Address, on_delete=models.SET_NULL, blank=True, null=True)
     coupon = models.ForeignKey(Coupon, on_delete=models.SET_NULL, null=True, blank=True)
