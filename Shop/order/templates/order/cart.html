@@ -1,0 +1,24 @@
+<div class="shopping-cart" style="display:none;font-family:'BYekan'">
+  <div class="shopping-cart-header">
+    <i class="fa fa-shopping-cart cart-icon"></i><span class="badge">{{cart|length}}</span>
+    <div class="shopping-cart-total">
+      <span class="lighter-text">قیمت کل:</span>
+      <span class="main-color-text">{{cart.get_total_price}}</span>
+    </div>
+  </div> <!--end shopping-cart-header -->
+
+  <ul class="shopping-cart-items">
+    
+    {% for item in cart %} 
+    <li class="clearfix" >
+      <span><img src="{{item.image}}" class='user-image rounded-circle' alt="item1" /></span>
+      <span class="item-name">{{item.name}}</span>
+      <span class="item-price">{{item.total_price}}تومان</span>
+      <span class="item-quantity">تعداد: {{item.quantity}}</span> 
+    </li>
+    {% endfor %}
+      
+  </ul>
+
+  <a href="#" class="button">Checkout</a>
+</div> <!--end shopping-cart -->
