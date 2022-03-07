@@ -9,9 +9,8 @@ def index(request):
     """
         This view just returns last 10 products in a home template
     """
-    cats = Category.objects.filter(parent__isnull=True).exclude(children__isnull=True)
     products = Product.objects.all()[:5]
-    return render(request, 'product/index.html', {'cats': cats, 'products': products})
+    return render(request, 'product/index.html', {'products': products})
 
 
 class CategoryDetail(View):
@@ -83,7 +82,6 @@ class ProductDetail(View):
         return super().setup(request, *args, **kwargs)
 
     def get(self, request, product_id):
-        print(self.product.brand)
         return render(request, self.template_name, {'product': self.product})
 
     def post(self, requset, product_id):
