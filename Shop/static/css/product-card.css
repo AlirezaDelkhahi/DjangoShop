@@ -176,3 +176,74 @@ a:hover {
     position: relative;
     top: -0.5rem;
   }
+  .quantity {
+    position: relative;
+  }
+  
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button
+  {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  input[type=number]
+  {
+    -moz-appearance: textfield;
+  }
+  
+  .quantity input {
+    width: 4em;
+    height: 3em;
+    line-height: 1.65;
+    float: left;
+    padding: 0;
+    margin: 0;
+    padding-left: 20px;
+    border: 1px solid #FF4742;
+  }
+  
+  .quantity input:focus {
+    outline: 0;
+  }
+  
+  .quantity-nav {
+    float: left;
+    position: relative;
+    height: 42px;
+  }
+  
+  .quantity-button {
+    position: relative;
+    cursor: pointer;
+    border-left: 1px solid #FF4742;
+    width: 20px;
+    text-align: center;
+    color: #fff;
+    font-size: 13px;
+    font-family: "Trebuchet MS", Helvetica, sans-serif !important;
+    line-height: 1.7;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+  }
+  
+  .quantity-button.quantity-up {
+    background-color: #FF4742;
+    position: absolute;
+    height: 50%;
+    top: 0;
+    border-bottom: 1px solid #FF4742;
+  }
+  
+  .quantity-button.quantity-down {
+    background-color: #FF4742;
+    position: absolute;
+    bottom: -2px;
+    height: 50%;
+    border-bottom: 1px solid #FF4742;
+  }
