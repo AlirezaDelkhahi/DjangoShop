@@ -8,7 +8,7 @@
 
 {% block Contents %}
     <div class="container-fluid text-dark p-0 m-0"  style="background-color:rgb(245, 245, 245)">
-        <div class="row justify-content-center ">
+        <div class="row justify-content-center m-0">
             <div class="col-12 col-sm-6 p-5">
                 <div id="image-slider" class="splide">
                     <div class="splide__track">
@@ -35,24 +35,38 @@
                 </div>
             </div>
             <div class="col-12 col-sm-6 p-3">
-                {% if product.category %}
+                <div class="row">
+                    {% if product.category %}
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item" class="text-primary" style="text-decoration:none;">{{ product.category.parent.name }}</li>
                         <li class="breadcrumb-item active" aria-current="page"><a class="text-primary" href="{% url 'product:category-detail' product.category.id %}" style="text-decoration:none;">{{ product.category.name }}</a></li>
-                    </ol>
-                {% endif %}
-                <h1 class="text-dark mt-3 p-2" style="direction:rtl; font-family:'Byekan'">{{ product.fa_name }}</h1>
-                <h2 class="text-dark mt-3 p-2" style="direction:rtl">{{ product.name }}</h2>
-                <p class=" p-1" style="color:rgb(97, 97, 97); direction:rtl; font-family:'Byekan'">{{ product.description }}</p>
-                <hr>
-                {% if product.discount %}
-                    <h5 class="text-danger" style="font-size: 1em">Special Offer: <span class="badge bg-danger">{{ product.discount }}</span></h5>
-                    <h6 class="product-old-price">{{product.price}}$</h6>
-                    <h4>{{product.final_price}}$</h4>
-                {% else %}
-                    <p class="text-black card-text  p-1" style="font-weight:bolder; ">{{ product.price }}$</p>
-                {% endif %}
-                <button class="button-2" onclick="AddToCart('{{product.id}}', 1, `{% url 'order:cart' product.id 1 %}`)">Add to cart</button>
+                        </ol>
+                    {% endif %}
+                    <h1 class="text-dark mt-3 p-2" style="direction:rtl; font-family:'Byekan'">{{ product.fa_name }}</h1>
+                    <h2 class="text-dark mt-3 p-2" style="direction:rtl">{{ product.name }}</h2>
+                    <p class=" p-1" style="color:rgb(97, 97, 97); direction:rtl; font-family:'Byekan'">{{ product.description }}</p>
+                    <hr>
+                    {% if product.discount %}
+                        <h5 class="text-danger" style="direction:rtl; font-size: 1em; font-family: 'BYekan';">تخفیف ویژه : <span class="badge bg-danger">{{ product.discount }}</span></h5>
+                        <div class='' style="direction:rtl; text-align: -webkit-center;"><h6 class="product-old-price" style="text-align:center; font-family:'BYekan';">{{product.price}} تومان</h6></div>
+                        <h4 class="" style="direction:rtl; text-align: center; font-family:'BYekan'">{{product.final_price}}  تومان</h4>
+                    {% else %}
+                        <p class="text-black card-text p-1" style="text-align:center; font-weight:bolder; font-family:'BYekan'; direction:rtl">{{ product.price }} تومان</p>
+                    {% endif %}
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-12 col-sm-2">
+                        <span>
+                            <div class="quantity">
+                                <input type="number" min="1" max="9" step="1" value="1" id="quantity-{{product.id}}" style="font-family:'BYekan'">
+                            </div>
+                        </span>
+                    </div>
+                    <div class="col-12 col-sm-3">
+                        <button data-order="{{open_order}}" onclick="AddToCart('{{product.id}}', '{{request.user.is_authenticated}}')" class="button-2" style="font-family:'BYekan'" id="add-to-cart-button">
+                            اضافه به سبد</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -89,5 +103,39 @@
         main.mount();
         thumbnails.mount();
 
+    </script>
+    <script>
+        jQuery('<div class="quantity-nav"><div class="quantity-button quantity-up">+</div><div class="quantity-button quantity-down">-</div></div>').insertAfter('.quantity input');
+        jQuery('.quantity').each(function() {
+          var spinner = jQuery(this),
+            input = spinner.find('input[type="number"]'),
+            btnUp = spinner.find('.quantity-up'),
+            btnDown = spinner.find('.quantity-down'),
+            min = input.attr('min'),
+            max = input.attr('max');
+
+          btnUp.click(function() {
+            var oldValue = parseFloat(input.val());
+            if (oldValue >= max) {
+              var newVal = oldValue;
+            } else {
+              var newVal = oldValue + 1;
+            }
+            spinner.find("input").val(newVal);
+            spinner.find("input").trigger("change");
+          });
+
+          btnDown.click(function() {
+            var oldValue = parseFloat(input.val());
+            if (oldValue <= min) {
+              var newVal = oldValue;
+            } else {
+              var newVal = oldValue - 1;
+            }
+            spinner.find("input").val(newVal);
+            spinner.find("input").trigger("change");
+          });
+
+        });
     </script>
 {% endblock  %}
