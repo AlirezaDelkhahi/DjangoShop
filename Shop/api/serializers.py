@@ -26,7 +26,8 @@ class CustomerSerializer(serializers.ModelSerializer):
 class CartItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartItem
-        fields = ['quantity', 'product', 'order', 'final_price']
+        fields = ['quantity', 'product', 'order']
+
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:

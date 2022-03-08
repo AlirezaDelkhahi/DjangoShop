@@ -7,7 +7,7 @@
 	 color: #abb0be;
 }
  .main-color-text {
-	 color: #6394f8;
+	 color: #ff4742••••••••••••;
 }
  
  .badge {
@@ -70,7 +70,7 @@
  .shopping-cart .shopping-cart-items .item-quantity {
 	 color: #abb0be;
 }
- .shopping-cart:after {
+ /* .shopping-cart:after {
 	 bottom: 100%;
 	 left: 89%;
 	 border: solid transparent;
@@ -82,7 +82,7 @@
 	 border-bottom-color: white;
 	 border-width: 8px;
 	 margin-left: -8px;
-}
+} */
  .cart-icon {
 	 color: #515783;
 	 font-size: 24px;

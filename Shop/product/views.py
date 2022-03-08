@@ -9,7 +9,7 @@ def index(request):
     """
         This view just returns last 10 products in a home template
     """
-    products = Product.objects.all()[:5]
+    products = Product.objects.all()[:10]
     return render(request, 'product/index.html', {'products': products})
 
 

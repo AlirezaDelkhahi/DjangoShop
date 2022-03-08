@@ -2,10 +2,10 @@
 {% block Title %}Brands{% endblock %}
 
 {% block Contents %}
-    <div class="container-fluid bg-dark text-white"  style="height:100vh;">
-        <div class="row justify-content-around">
+    <div class="container-fluid">
+        <div class="row justify-content-around p-4">
             {% for brand in brands %}
-                <div class="col-12 col-sm-10 col-md-3 card p-0 text-center">
+                <div class="col-12 col-sm-10 col-md-3 card p-0 text-center shadow-sm">
                     <img src="{{brand.thumbnail.url}}" class="card-img-top img-responsive img-fluid" style="max-height: 220px" alt="{{ brand.name }}">
                     <h3 class="text-primary card-title m-3 p-1">{{ brand.name }}</h3>
                     <p class="text-dark card-text p-1"><span style="font-weight: bolder">Country: </span>{{ brand.country }}</p>

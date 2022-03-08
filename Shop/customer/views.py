@@ -94,10 +94,10 @@ class UserLoginView(View):
                 if not open_order.exists():
                     open_order = Order.objects.create(customer=user.customer)
                 self.cart.session_merge_order(open_order.first())
-                sweetify.toast(request, "you logged in successfully.", icon="success", timer=5000)
+                sweetify.toast(request, "you logged in successfully.", icon="success", timer=1500)
                 return redirect('product:home')
             else:
-                sweetify.toast(request, "username or password is not correct", icon="error", timer=10)
+                sweetify.toast(request, "username or password is not correct", icon="error", timer=1500)
 
         return render(request, self.template_name, {'form': form})
 
@@ -108,7 +108,7 @@ class UserLogoutView(LoginRequiredMixin, View):
     """
     def get(self, request):
         logout(request)
-        sweetify.toast(request, "You've been logged out successfully.", icon="success", timer=5000)
+        sweetify.toast(request, "You've been logged out successfully.", icon="success", timer=1500)
         return redirect('product:home')
 
 

@@ -18,7 +18,7 @@ class Address(BaseModel):
         ordering = ['-created']
 
     def __str__(self):
-        return f'{self.customer} {self.city}'
+        return f'{self.customer} : {self.city}-{self.address}'
 
 
 def get_upload_path(instance, filename):

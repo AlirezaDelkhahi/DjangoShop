@@ -11,8 +11,8 @@ urlpatterns = [
     path('address-detail/<pk>', AddressDetailView.as_view(), name='address-detail'),
     path('customer-detail/<pk>', CustomerDetailView.as_view(), name='customer-detail'),
     path('customer-list/', CustomerListView.as_view(), name='customer-list'),
-    path('cartitem-list/', CartItemListView.as_view(), name='cartitem-list'),
     path('cartitem-detail/<pk>', CartItemDetailView.as_view(), name='cartitem-detail'),
+    path('cartitem-list/', CartItemListView.as_view(), name='cartitem-list'),
     path('order-list/', OrderListView.as_view(), name='order-list'),
     path('order-detail/<pk>', OrderDetailView.as_view(), name='order-detail'),
 ]

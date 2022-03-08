@@ -35,11 +35,12 @@ class Cart:
                 'quantity': 0,
                 'price': str(product.final_price),
                 'name': product.fa_name,
+                'id': product.id,
                 'image': product.images.first().pic.url
                 }
         self.cart[product_id]['quantity'] += quantity
         self.save()
-    
+ 
     def __len__(self):
         return sum(int(item['quantity']) for item in self.cart.values())
 
