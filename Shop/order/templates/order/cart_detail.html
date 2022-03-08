@@ -1,0 +1,73 @@
+{% extends 'shop/_base.html' %}
+{% load static %}
+{% block Title %}Cart Detail{% endblock %}
+
+
+{% block Styles %}
+    <link rel="stylesheet" href="{% static 'css/cart-detail.css' %}">
+{% endblock  %}
+    
+
+{% block Contents %}
+<div class="wrap cf" style="direction:rtl; font-family:'BYekan'!important" id="cart-detail">
+    <h1 class="projTitle">سبد خرید</h1>
+    <div class="cart">
+      <ul class="cartWrap">
+        
+        {% for item in cart %}
+        <li class="items">
+            <div class="infoWrap"> 
+                <div class="cartSection">
+                    <img src="{{item.image}}" alt="item.name" class="itemImg" />
+                    <h3 style="margin-top:1.5em; font-family:'BYekan'">{{item.name}}</h3>
+                    <p style="font-family:BYekan"> تعداد: {{item.quantity}}</p>
+                </div>  
+            
+                
+                <div class="prodTotal cartSection">
+                  <p style="font-family:'BYekan'">{{item.total_price}} تومان</p>
+                </div>
+                      <div class="cartSection removeWrap">
+                   <a href="#" onclick="deleteItem('{{item.id}}')" class="remove">x</a>
+                </div>
+              </div>
+              </li>
+        {% endfor %}
+            
+      </ul>
+    </div>
+    
+    <div class="promoCode"><label for="promo">اگر کد تخفیف دارید در اینجا وارد کنید</label><input type="text" name="promo" placeholder="کد تخفیف ..." />
+        <a href="#" class="btn"></a></div>
+    <div class="promoCode"><label for="promo">آدرس خود را انتخاب کنید</label>{{address_form}}
+      </div>
+    
+    <div class="subtotal cf">
+      <ul>
+        <li class="totalRow"><span class="label" style="font-family:'BYekan'">قیمت کل</span><span class="value" id='cart-total-price'>{{cart.get_total_price}} تومان</span></li>     
+        <li class="totalRow"><a href="#" class="btn continue" style="font-family:'BYekan'">پرداخت</a></li>
+      </ul>
+    </div>
+  </div>
+  
+{% endblock  %}
+    
+
+{% block Scripts %}
+    <script>
+        // Remove Items From Cart
+      $('a.remove').click(function(){
+        event.preventDefault();
+        $( this ).parent().parent().parent().hide( 400 );
+      
+      })
+
+      // Just for testing, show all items
+        $('a.btn.continue').click(function(){
+          $('li.items').show(400);
+        })
+
+  
+    </script>
+{% endblock  %}
+    
