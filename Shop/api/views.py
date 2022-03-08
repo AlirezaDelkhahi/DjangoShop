@@ -8,7 +8,7 @@ from .permissions import IsOwnerPermission, IsSuperUserPermission, IsOwnerCartIt
 import django_filters.rest_framework
 from rest_framework import filters
 from order.models import CartItem, Order
-
+from django.http import JsonResponse
 # -------User Detail/List------------------
 
 class UserListView(generics.ListAPIView):
@@ -50,17 +50,38 @@ class CustomerListView(generics.ListAPIView):
 
 
 # -------CartItem Detail/List------------------
-class CartItemListView(generics.ListAPIView):
+class CartItemListView(generics.ListCreateAPIView):
     serializer_class = CartItemSerializer
     permission_classes = [permissions.IsAuthenticated]
+    queryset = CartItem.objects.all()
 
-    def get_queryset(self):
-        return CartItem.objects.filter(order = self.request.user)
+    def post(self, request):
+        serializer_object = CartItemSerializer(data=request.data)
+        serializer_object.is_valid(raise_exception=True)
+        
+        order_id = serializer_object.validated_data['order'].id
+        product_id = serializer_object.validated_data['product'].id
+        items = CartItem.objects.filter(order_id=order_id, product_id=product_id)
+        if items.exists():
+            old_item = items.first()
+            old_item.quantity += int(serializer_object.validated_data['quantity'])
+            old_item.save()
+        else:
+            serializer_object.save()
+        return JsonResponse({'msg':'ok'})
+        
+        
 
 class CartItemDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CartItemSerializer
     queryset = CartItem.objects.all()
     permission_classes = [IsOwnerCartItemPermission, permissions.IsAuthenticated]
+
+    def delete(self, request, pk):
+        cart_item = CartItem.objects.get(product_id=pk)
+        cart_item.delete()
+        return JsonResponse({'msg':'ok'})
+
 
 # -------Cart Detail/List------------------
 class OrderListView(generics.ListAPIView):
