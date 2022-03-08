@@ -240,6 +240,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'order.context_processors.cart',
+                'order.context_processors.open_order',
                 'product.context_processors.category',
             ],
         },
@@ -371,7 +372,7 @@ LOGGING = {
         },
     },
     'root': {
-        'handlers': ['console', 'file'],
+        'handlers': ['console'],
         'level': 'DEBUG',
     },
     'loggers': {
