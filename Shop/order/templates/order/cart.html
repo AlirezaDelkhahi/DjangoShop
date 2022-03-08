@@ -1,4 +1,4 @@
-<div class="shopping-cart" style="display:none;font-family:'BYekan'">
+<div class="shopping-cart" style="display:none;font-family:'BYekan'" id="shopping-cart">
   <div class="shopping-cart-header">
     <i class="fa fa-shopping-cart cart-icon"></i><span class="badge">{{cart|length}}</span>
     <div class="shopping-cart-total">
@@ -13,12 +13,12 @@
     <li class="clearfix" >
       <span><img src="{{item.image}}" class='user-image rounded-circle' alt="item1" /></span>
       <span class="item-name">{{item.name}}</span>
-      <span class="item-price">{{item.total_price}}تومان</span>
-      <span class="item-quantity">تعداد: {{item.quantity}}</span> 
+      <span class="item-price">{{item.total_price}} تومان</span>
+      <br>
+      <span class="item-quantity">{{item.quantity}} عدد</span> 
     </li>
     {% endfor %}
-      
   </ul>
 
-  <a href="#" class="button">Checkout</a>
+  <a href="{% url 'order:cart-details' %}" class="button-2 w-100">details</a>
 </div> <!--end shopping-cart -->
