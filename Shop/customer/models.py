@@ -36,7 +36,7 @@ class Customer(BaseModel):
         ('female', 'مونث')
         )
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('User'))
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('User'), default=None, blank=True, null=True)
     image = models.FileField(default='Default-Images/default_user.png', upload_to='user_profiles/', blank=True, null=True, verbose_name='Profile Image')
     gender = models.CharField(choices=gender_choices, null=True, blank=True, verbose_name='Gender', max_length=10)
 
