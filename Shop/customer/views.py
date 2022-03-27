@@ -11,6 +11,7 @@ from django.contrib.auth import views as auth_views
 import sweetify
 from order.models import Order
 from order.cart import Cart
+from customer.models import Customer
 # Create your views here.
 
 
@@ -90,10 +91,9 @@ class UserLoginView(View):
             user = authenticate(request, username=clean_data['phone'], password=clean_data['password1'])
             if user is not None:  # user exists and passed of authentication
                 login(request, user)
-                open_order = user.customer.orders.filter(is_active = True)
-                if not open_order.exists():
-                    open_order = Order.objects.create(customer=user.customer)
-                self.cart.session_merge_order(open_order.first())
+                customer, created = Customer.objects.get_or_create(user=request.user)
+                open_order, created = Order.objects.get_or_create(customer=customer, is_active=True)
+                self.cart.session_merge_order(open_order)
                 sweetify.toast(request, "you logged in successfully.", icon="success", timer=1500)
                 return redirect('product:home')
             else:
