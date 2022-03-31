@@ -129,3 +129,8 @@ class UserPasswordResetConfirmView(auth_views.PasswordResetConfirmView):
 
 class UserPasswordResetCompleteView(auth_views.PasswordResetCompleteView):
     template_name = 'customer/password_reset_complete.html'
+
+
+class PanelView(View):
+    def get(self, request):
+        return render(request, 'customer/panel.html')
