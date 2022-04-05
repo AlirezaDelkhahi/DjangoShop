@@ -214,7 +214,7 @@
   background: #E4E9F7;
   height: 100vh;
   left: 300px;
-  width: calc(100% - 260px);
+  width: calc(100% - 300px);
   transition: all 0.5s ease;
 }
 .sidebar.close ~ .home-section{
@@ -224,6 +224,7 @@
 .home-section .home-content{
   height: 60px;
   display: flex;
+  flex-flow: wrap;
   align-items: center;
 }
 .home-section .home-content .bx-menu,
