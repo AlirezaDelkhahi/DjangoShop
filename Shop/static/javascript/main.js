@@ -54,6 +54,9 @@ function AddToCart(product_id, is_authenticated){
             url: 'http://127.0.0.1:8000/api/cartitem-list/',
             data: {'quantity':quantity, 'product':product_id, 'order':order_id},
             type: 'POST',
+            headers: {
+                "X-CSRFToken": $.cookie("csrftoken")
+            },
             success: (response)=>{
                 console.log(response)
             }
@@ -96,4 +99,40 @@ function deleteItem(product_id){
             console.log(response)
         }
     }) // delete cartitem in database
+}
+
+
+function offCodeCheck(url){
+    offCode = $('#offcode').val()
+    if(offCode == ''){
+        Swal.fire(
+            'Failed',
+            'the field is empty',
+            'error'
+        )
+    }else{
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: {'offCode': offCode},
+            headers: {"X-CSRFToken": $.cookie("csrftoken")},
+            success: (response)=>{
+                console.log(response)
+                if(response.msg == 'NotValid'){
+                    Swal.fire(
+                        'Failed',
+                        'offcode is not valid',
+                        'error'
+                    )
+                }else if(response.msg == 'Success'){
+                    $('#cart-total-price').html(response.final_price)
+                    Swal.fire(
+                        'done',
+                        'you got the discount',
+                        'success'
+                    )
+                }
+            }
+        })
+    }
 }
