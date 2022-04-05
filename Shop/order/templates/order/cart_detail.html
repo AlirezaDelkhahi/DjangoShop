@@ -37,17 +37,20 @@
       </ul>
     </div>
     
-    <div class="promoCode"><label for="promo">اگر کد تخفیف دارید در اینجا وارد کنید</label><input type="text" name="promo" placeholder="کد تخفیف ..." />
-        <a href="#" class="btn"></a></div>
+    <div class="promoCode"><label for="promo">اگر کد تخفیف دارید در اینجا وارد کنید</label><input type="text" name="promo" placeholder="کد تخفیف ..." / id="offcode">
+      <a href="#" onclick="offCodeCheck(`{% url 'order:offcode-check' %}`)" class="btn"  ></a></div>
+    <form action="{% url 'order:payment' %}" method='POST'>
     <div class="promoCode"><label for="promo">آدرس خود را انتخاب کنید</label>{{address_form}}
       </div>
     
     <div class="subtotal cf">
       <ul>
         <li class="totalRow"><span class="label" style="font-family:'BYekan'">قیمت کل</span><span class="value" id='cart-total-price'>{{cart.get_total_price}} تومان</span></li>     
-        <li class="totalRow"><a href="#" class="btn continue" style="font-family:'BYekan'">پرداخت</a></li>
+        <li class="totalRow"><button class='btn btn-success' type='submit' style='font-family:"BYekan"' id='paymentButton'>پرداخت</button></li>
       </ul>
     </div>
+    {% csrf_token %}
+  </form>
   </div>
   
 {% endblock  %}
@@ -55,6 +58,10 @@
 
 {% block Scripts %}
     <script>
+      
+      $('#paymentButton').prop('disabled', true)
+
+
         // Remove Items From Cart
       $('a.remove').click(function(){
         event.preventDefault();
@@ -66,8 +73,16 @@
         $('a.btn.continue').click(function(){
           $('li.items').show(400);
         })
-
-  
+      $('#id_address').change(()=>{
+        if($('#id_address').val() == ''){
+          $('#paymentButton').prop('disabled', true)
+        }else{
+          let cartLen = Number("{{cart | length}}")
+          if(cartLen > 0){
+            $('#paymentButton').prop('disabled', false)
+          }
+        }
+      })
     </script>
 {% endblock  %}
     
