@@ -2,11 +2,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
-from .forms import UserRegistrationForm, UserLoginForm
+from .forms import UserRegistrationForm, UserLoginForm, UserAddressForm
 from django.contrib.auth import authenticate, login, logout
 from core.models import User
 from django.contrib import messages
-from .models import Customer
+from .models import Address, Customer
 from django.contrib.auth import views as auth_views
 import sweetify
 from order.models import Order
@@ -132,5 +132,24 @@ class UserPasswordResetCompleteView(auth_views.PasswordResetCompleteView):
 
 
 class PanelView(View):
+
     def get(self, request):
-        return render(request, 'customer/panel.html')
+        recent_orders = Order.objects.filter(customer = request.user.customer, is_active=False)
+        addresses = Address.objects.filter(customer = request.user.customer)
+        return render(request, 'customer/panel.html', {'recent_orders': recent_orders, 'addresses':addresses})
+
+
+class UserAddressView(View):
+    def setup(self, request, *args, **kwargs) -> None:
+        
+        
+        return super().setup(request, *args, **kwargs)
+    def dispatch(self, request, *args, **kwargs) :
+        if request.method == 'POST':
+            form = UserAddressForm(request.POST)
+            if form.is_valid():
+                form_data = form.cleaned_data
+                
+
+
+        return super().dispatch(request, *args, **kwargs)
