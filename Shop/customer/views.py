@@ -140,16 +140,6 @@ class PanelView(View):
 
 
 class UserAddressView(View):
-    def setup(self, request, *args, **kwargs) -> None:
+    def post(self, requset):
+        pass
         
-        
-        return super().setup(request, *args, **kwargs)
-    def dispatch(self, request, *args, **kwargs) :
-        if request.method == 'POST':
-            form = UserAddressForm(request.POST)
-            if form.is_valid():
-                form_data = form.cleaned_data
-                
-
-
-        return super().dispatch(request, *args, **kwargs)
