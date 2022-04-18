@@ -1,0 +1,54 @@
+{% load static %}
+<div class="sidebar ">
+    <div class="logo-details">
+      <i><a href="{% url 'product:home' %}"><img class='rouinded-circle brand-image' src="{% static 'site-logo.png' %}"></a></i> 
+      <span class="logo_name"><a href="{% url 'product:home' %}" style='color:white; text-decoration:none'> Ali Shop</a></span>
+      
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="#">
+        <i class='bx bx-history'></i>
+          <span class="link_name">Addresses</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="#">Address</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bx-collection' ></i>
+            <span class="link_name">Orders</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">Orders</a></li>
+          <li><a href="#">Recent orders</a></li>
+          <li><a href="#">Orders status</a></li>
+          <li><a href="#">Submited orders</a></li>
+        </ul>
+      </li>
+      
+      <li>
+    <div class="profile-details">
+      <div class="profile-content">
+        <img src="{{user.customer.image.url}}" alt="profileImg">
+      </div>
+      <div class="name-job">
+          
+          {% if not user.first_name  %}
+          <div class="profile_name">{{user.customer.phone}}</div>
+          {% else %}
+          <div class="profile_name">{{user.first_name}}</div>      
+          {% endif %}
+              
+        <div class="job">{{user.email}}</div>
+      </div>
+      <a href="{% url 'customer:user-logout' %}"><i class='bx bx-log-out' ></i></a>
+     </div>
+      </li>
+    </ul>
+  </div>
+  
