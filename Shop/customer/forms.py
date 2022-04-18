@@ -1,4 +1,5 @@
 from django import forms
+from customer.models import Address
 from core.models import User
 from django.core.exceptions import ValidationError
 from django.contrib.auth.password_validation import validate_password
@@ -56,3 +57,8 @@ class UserLoginForm(forms.Form):
     """
     phone = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     password1 = forms.CharField(label='password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
+
+class UserAddressForm(forms.ModelForm):
+    model = Address
+    fields = ['city', 'postal_code', 'address']
