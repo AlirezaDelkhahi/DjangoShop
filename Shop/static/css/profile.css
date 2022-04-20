@@ -1,0 +1,16 @@
+.profile-card{
+    background-color:aliceblue;
+    margin:3rem;
+    padding: 1em;
+    box-shadow: 1px 1px 8px -4px black
+}
+
+.profile-card .profile-body{
+    margin-top: 3rem;
+}
+.profile-card .profile-body h4{
+    font-size: 1.1rem;
+}
+.profile-card .profile-body h5{
+    font-size: 1.0rem;
+}
