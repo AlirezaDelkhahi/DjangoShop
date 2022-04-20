@@ -7,15 +7,24 @@
     </div>
     <ul class="nav-links">
       <li>
-        <a href="#">
+        <a href="{% url 'customer:panel' %}">
         <i class='bx bx-history'></i>
-          <span class="link_name">Addresses</span>
+          <span class="link_name">Dashboard</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Address</a></li>
+          <li><a class="link_name" href="{% url 'customer:panel' %}">Dashboard</a></li>
         </ul>
       </li>
       <li>
+        <a href="{% url 'customer:profile'%} ">
+        <i class='bx bx-history'></i>
+          <span class="link_name">Profile</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'customer:profile'%}">Profile</a></li>
+        </ul>
+      </li>
+      {% comment %} <li>
         <div class="iocn-link">
           <a href="#">
             <i class='bx bx-collection' ></i>
@@ -29,7 +38,7 @@
           <li><a href="#">Orders status</a></li>
           <li><a href="#">Submited orders</a></li>
         </ul>
-      </li>
+      </li> {% endcomment %}
       
       <li>
     <div class="profile-details">
