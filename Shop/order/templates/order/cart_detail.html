@@ -40,7 +40,13 @@
     <div class="promoCode"><label for="promo">اگر کد تخفیف دارید در اینجا وارد کنید</label><input type="text" name="promo" placeholder="کد تخفیف ..." / id="offcode">
       <a href="#" onclick="offCodeCheck(`{% url 'order:offcode-check' %}`)" class="btn"  ></a></div>
     <form action="{% url 'order:payment' %}" method='POST'>
-    <div class="promoCode"><label for="promo">آدرس خود را انتخاب کنید</label>{{address_form}}
+    <div class="promoCode"><label for="promo">آدرس خود را انتخاب کنید</label>
+      {{address_form}}
+      <a href="{% url 'customer:address-create' %}">
+        <h5 style='font-size:0.8rem; color:rgb(35 159 165); margin-top:0.4rem;'>
+          اضافه کردن آدرس جدید
+        </h5>
+      </a>
       </div>
     
     <div class="subtotal cf">
