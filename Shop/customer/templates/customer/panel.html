@@ -12,7 +12,7 @@
    </head>
 <body>
 
- {% include 'customer/__sidebar.html' %}
+  {% include 'customer/__sidebar.html' %}
 
   <section class="home-section">
     <div class="home-content">
@@ -34,13 +34,16 @@
               <div class="card-header text-center">ًRecent Orders</div>
               <div class="card-body">
                 {% for order in recent_orders  %} 
-                <h5 class="card-title mt-3"><span><i class='bx bxs-purchase-tag-alt'></i></span>{{order.created}}  <span class='text-info'>{{order.final_price}} </span>Toomans</h5>
-                
+                <h5 class="card-title mt-3" style='font-size:1em;'><span style='color: #0e819b;text-shadow: 1px 1px 2px #b9e1db;'>Order Code: {{order.id}}</span><br> final price : <span style='font-size: 0.8rem;color: rgb(114 107 71)'>{{order.final_price}} Toomans </span></h5>
+                <h5 style='color: gray; font-size:0.6em'>{{order.created}} </h5>
+    
                 {% for item in order.items.all  %}
-                <p class="card-text"><small class="text-muted">{{item.product.name}}   {{item.final_price}}</small></p>
+                  <a href="{% url 'product:product-detail' item.product.id %}" style='text-decoration:none; line-height:2rem;'>
+                    <p class="card-text"><small class="text-muted"><span><img src="{{item.product.images.first.pic.url}}" alt="" style='height:2rem; width:2rem; border-radius:50%;'></span>{{item.product.name}}</small></p>
+                  </a>
                 {% endfor %}
                   
-                
+                <hr>
                 {% endfor %}
               </div>
             </div>
@@ -53,7 +56,20 @@
                 {% for address in addresses  %} 
                 <h5 class="card-title">{{address.city}}</h5>
                 <p class="card-text">{{address.address}}</p>
-                <p class="card-text"><small class="text-muted">{{address.created}}</small></p>
+                <p class="card-text"><small class="text-muted">{{address.created}}</small>
+                  <span>
+                    <a href="{% url 'customer:address-edit' address.id %}">
+                      <i class='bx bx-edit-alt'></i>
+                    </a>
+                    <a href="{% url 'customer:address-delete' address.id %}">
+                      <i class='bx text-danger bxs-comment-x'></i>
+                    </a>
+                  </span>
+                </p>
+                <hr>
+                <a href="{% url 'customer:address-create' %}" style='text-decoration:none'>
+                  <h5 style='color:rgb(35 159 165); font-size:0.8rem; margin-top:0.3rem;'>add a new address</h5>
+                </a>
                 {% endfor %}
               </div>
             </div>
