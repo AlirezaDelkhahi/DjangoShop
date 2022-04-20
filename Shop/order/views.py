@@ -10,6 +10,7 @@ from product.models import Product
 from django.shortcuts import get_object_or_404
 from order.forms import AddressForm
 from .models import Order, Coupon
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class CartView(View):
@@ -31,9 +32,8 @@ class CartList(View):
     def get(self, request):
         return render(request, self.template_name)
 
-class CartDetails(View):
+class CartDetails(LoginRequiredMixin, View):
     template_name = 'order/cart_detail.html'
-
     def get(self, request):
         return render(request, self.template_name, { 'address_form':AddressForm(customer=request.user.customer)})  
 
