@@ -12,6 +12,8 @@ import sweetify
 from order.models import Order
 from order.cart import Cart
 from customer.models import Customer
+from django.views.generic import UpdateView, CreateView, DeleteView
+from django import http
 # Create your views here.
 
 
@@ -139,7 +141,42 @@ class PanelView(View):
         return render(request, 'customer/panel.html', {'recent_orders': recent_orders, 'addresses':addresses})
 
 
-class UserAddressView(View):
-    def post(self, requset):
-        pass
-        
+class UserAddressView(UpdateView):
+    template_name = 'customer/address_edit.html'
+    model = Address
+    fields = ['city', 'postal_code', 'address']
+    success_url = reverse_lazy('customer:panel')
+
+class UserAddressCreateView(CreateView):
+    template_name = 'customer/address_create.html'
+    model = Address
+    fields = ['city', 'postal_code', 'address']
+    success_url = reverse_lazy('customer:panel')
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.customer = self.request.user.customer
+        self.object.save()
+
+        return http.HttpResponseRedirect(self.get_success_url())
+
+class UserAddressDeleteView(DeleteView):
+    model = Address
+    success_url = reverse_lazy('customer:panel')
+    
+
+
+class UserProfileEditView(UpdateView):
+    template_name = 'customer/profile_edit.html'
+    model = User
+    fields = ['first_name', 'last_name', 'email']
+    success_url = reverse_lazy('customer:panel')
+
+class UserProfileImageEditView(UpdateView):
+    template_name = 'customer/profile_pic_edit.html'
+    model = Customer
+    fields = ['image']
+    success_url = reverse_lazy('customer:panel')
+class UserProfileView(View):
+    def get(self, request):
+        return render(request, 'customer/profile.html')
