@@ -78,11 +78,15 @@
     <script src="{% static 'javascript/splide.min.js' %}"></script>
     <script>
         let main = new Splide( '#image-slider', {
+            
+            height:700 ,
+            fixedheight: 400,
+            heightRatio: 0.55,
             cover      : true,
-            heightRatio: 0.995,
             type: 'loop',
             pagination: false,
             arrows: false,
+            
         } );
         let thumbnails = new Splide( '#thumbnail-slider', {
             fixedWidth  : 100,
