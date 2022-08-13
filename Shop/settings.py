@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure-q_du&*1!k(rd%x^k&v^-35&eh8f4_@r!1#rdbfz-q&os^(()!(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # ----------------------JAZZMIN BASE CONFIG-----------------
 JAZZMIN_SETTINGS = {
